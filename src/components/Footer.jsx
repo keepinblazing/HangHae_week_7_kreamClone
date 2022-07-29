@@ -81,7 +81,7 @@ const Footer = () => {
           <BottomInBottom>
             <SmallInfo>
               IsKream은 판매를 하지 않습니다. 신발을 구매하고 싶으시면 KREAM으로
-              가세요.
+              가주세요.
             </SmallInfo>
           </BottomInBottom>
         </Bottom>
