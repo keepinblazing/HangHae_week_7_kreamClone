@@ -24,32 +24,40 @@ const Footer = () => {
 
   return (
     <>
-      <Banner></Banner>
-      <Wrapper>
+     <Wrapper>
+  
+      <BannerContainer>
+      <Banner>
+      </Banner>
+      <Banner2>
+      </Banner2>
+      </BannerContainer>
+     
+     
         <Top>
           <Left>
             <Title>이용안내</Title>
-            <ListContainer>
+
               {USERINFO.map((info, index) => (
                 <List key={index}>{info}</List>
               ))}
-            </ListContainer>
+
           </Left>
           <Center>
             <Title>고객지원</Title>
-            <ListContainer>
+
               {USERSUPPORT.map((support, index) => {
                 return <List key={index}>{support}</List>;
               })}
-            </ListContainer>
+
           </Center>
           <Right>
             <Title>고객센터 1234-5678</Title>
-            <ListContainer>
+
               {CUSTMOERSURVICE.map((customer, index) => (
                 <List key={index}>{customer}</List>
               ))}
-            </ListContainer>
+
             <Button>자주 묻는 질문</Button>
           </Right>
         </Top>
@@ -68,11 +76,8 @@ const Footer = () => {
 
           <BottomInBottom>
             <SmallInfo>
-              IsKream은 통신판매 중개자로서 통신판매의 당사자가 아니므로 개별
-              판매자가 등록한 상품정보에 대해서 책임을 지지 않습니다.
-              <br />
-              단, 거래과정에서 검수하고 보증하는 내용에 대한 책임은 당사에
-              있습니다.
+              IsKream은 판매를 하지 않습니다.
+              신발을 구매하고 싶으시면 KREAM으로 가세요.
             </SmallInfo>
           </BottomInBottom>
         </Bottom>
@@ -80,13 +85,6 @@ const Footer = () => {
     </>
   );
 };
-const Banner = styled.section`
-  margin-top: 100px;
-  width: 100%;
-  height: 15rem;
-  background-color: green;
-`;
-
 const Wrapper = styled.footer`
   position: relative;
   bottom: 0;
@@ -94,18 +92,46 @@ const Wrapper = styled.footer`
   display: flex;
   flex-direction: column;
   background-color: white;
-  padding: 2rem;
+
 `;
+const BannerContainer = styled.section`
+
+  display: flex;
+  margin-bottom : 0.7rem;
+
+`;
+
+const Banner = styled.div`
+  width: 50%;
+  float: left;
+  height: 20rem;
+  /* background-color:#565656; */
+  background-image: url("src/images/banner1.png");
+  /* background-blend-mode : multiply; */
+  
+ 
+  
+`;
+const Banner2 = styled.section`
+  width: 50%;
+  float: left;
+  height: 20rem;
+  background-color: #3b3a3c;  
+
+`;
+
+
 
 const Top = styled.section`
   flex: 0 0 20vh;
   display: flex;
+  padding : 1.5rem;
 `;
 
 const Bottom = styled.section`
   flex: 0 0 20vh;
-  padding-top: 2rem;
   border-top: 1px solid #c9cdd6;
+  padding : 1.5rem;
 `;
 
 const Left = styled.div`
@@ -125,15 +151,13 @@ const Title = styled.div`
   font-weight: bold;
 `;
 
-const ListContainer = styled.li`
-  list-style: none;
-`;
 
 const List = styled.li`
   margin-bottom: 1rem;
   color: #bcbcbc;
   font-size: 0.9rem;
   margin-right: 1rem;
+  list-style : none;
 `;
 
 const Info = styled.p`
