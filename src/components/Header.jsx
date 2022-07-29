@@ -21,7 +21,7 @@ const Header = () => {
 };
 
 const MainHeader = styled.div`
-  position: fixed;
+  position: relative;
   top: 0;
   width: 100%;
   z-index: 2;

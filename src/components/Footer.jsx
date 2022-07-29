@@ -24,7 +24,6 @@ const Footer = () => {
   ];
 
   return (
-    <>
       <Wrapper>
         <BannerContainer>
           <Banner>
@@ -87,7 +86,7 @@ const Footer = () => {
           </BottomInBottom>
         </Bottom>
       </Wrapper>
-    </>
+
   );
 };
 const Wrapper = styled.footer`
@@ -127,8 +126,8 @@ const Banner2 = styled.section`
 
 const BannerTitle = styled.div`
   font-weight: bold;
-  padding: 1rem 0rem 0rem 1rem;
-  margin-top: 7rem;
+  padding: 0rem 0rem 0rem 1rem;
+  margin-top: 4rem;
   color: white;
   font-size: 0.8rem;
 `;

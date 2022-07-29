@@ -1,13 +1,12 @@
 import React from "react";
+import HomeImageSlide from "../components/HomeImageSlide";
 
 const HomePage = () => {
 
 
     return (
         <>
-
-        안녕하세요
-        
+        <HomeImageSlide/>
         </>
 
     )
@@ -18,3 +17,6 @@ const HomePage = () => {
 
 
 export default HomePage;
+
+
+
