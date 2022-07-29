@@ -8,12 +8,12 @@ const Header = () => {
         <Login>로그인</Login>
       </FirstHeader>
       <SecondHeader>
-      <MenuBox>
-        <Home>IsKREAM</Home>
+        <MenuBox>
+          <Home>IsKREAM</Home>
         </MenuBox>
         <MenuBox>
-          <GoToShop>SHOP</GoToShop>
-          <GoToAbout>ABOUT</GoToAbout>
+          <Shop>SHOP</Shop>
+          <About>ABOUT</About>
         </MenuBox>
       </SecondHeader>
     </MainHeader>
@@ -42,7 +42,7 @@ const SecondHeader = styled.div`
   padding-left: 50px;
   height: 68px;
   background-color: white;
-  border: 1.2px solid #C9CDD6;
+  border: 1.2px solid #c9cdd6;
 `;
 
 const Home = styled.div`
@@ -66,7 +66,7 @@ const MenuBox = styled.div`
   align-items: center;
 `;
 
-const GoToShop = styled.div`
+const Shop = styled.div`
   margin-left: 20px;
   margin-right: 20px;
   :hover {
@@ -74,7 +74,7 @@ const GoToShop = styled.div`
   }
 `;
 
-const GoToAbout = styled.div`
+const About = styled.div`
   margin-left: 20px;
   margin-right: 20px;
 `;
