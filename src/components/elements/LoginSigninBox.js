@@ -51,6 +51,24 @@ export const LoginSigninBtn = styled.button`
   font-weight: bold;
   cursor: pointer; 
 `;
+
+export const LoginSigninDbtn = styled.button`
+  width: 25rem;
+  height: 4rem;
+  background-color: #EBEBEB;
+  color : white;
+  border: transparent;
+  border-radius: 1rem;
+  text-align: center;
+  outline: none;
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer; 
+`;
+
+
+
 export const Label = styled.h3`
   display: block;
   font-weight: bold;

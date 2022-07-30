@@ -25,10 +25,6 @@ const LoginPage = () => {
       <Label >비밀번호</Label>
       <LoginSigninInput  type="password" placeholder="영문, 숫자, 특수문자 조합 8~16자"/>
       </InputWrapper>
-      <InputWrapper>
-      <Label>닉네임</Label>
-      <LoginSigninInput/>
-      </InputWrapper>
       <GoToSignup onClick={()=> navigate("/signup")}>회원가입</GoToSignup>
       <LoginSigninBtn>로그인</LoginSigninBtn>
     </LoginSigninBox>
