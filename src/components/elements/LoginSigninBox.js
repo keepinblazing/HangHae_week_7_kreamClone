@@ -60,7 +60,7 @@ export const Label = styled.h3`
 
 export const Msg = styled.div`
 
-color : red;
+color : #ef6253;
 font-size : 0.8rem;
 
 `;
