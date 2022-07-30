@@ -13,7 +13,7 @@ const Header = () => {
       </FirstHeader>
       <SecondHeader>
         <MenuBox>
-          <Home>IsKREAM</Home>
+          <Home onClick={()=>{navigate("/")}}>IsKREAM</Home>
         </MenuBox>
         <MenuBox>
           <Shop>SHOP</Shop>
@@ -51,11 +51,14 @@ const SecondHeader = styled.div`
   border-right : transparent;
 `;
 
-const Home = styled.div`
+const Home = styled.button`
   text-decoration: none;
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: bold;
   font-style: italic;
+  background-color : transparent;
+  border : none;
+  cursor : pointer;
 `;
 
 const Login = styled.div`
