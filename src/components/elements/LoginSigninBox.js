@@ -64,7 +64,6 @@ export const LoginSigninDbtn = styled.button`
   margin-top: 1rem;
   font-size: 1rem;
   font-weight: bold;
-  cursor: pointer; 
 `;
 
 
