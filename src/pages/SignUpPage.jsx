@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { combineReducers } from "redux";
 import styled from "styled-components";
+import instance from "../axiosConfig";
 import {
   LoginSigninBox,
   LoginSigninInput,
@@ -14,17 +14,13 @@ import {
 
 const SignUpPage = () => {
   //아이디, 비밀번호, 패스워드
-  const [id, setId] = useState();
-  const [pw, setPw] = useState();
-  const [nickName, setNickName] = useState();
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+  const [nickName, setNickName] = useState("");
   //오류메세지
   const [idMsg, setIdMsg] = useState(false);
   const [pwMsg, setPwMsg] = useState(false);
   const [nickMsg, setNickMsg] = useState(false);
-  //유효성 검사
-  const [idChk, setIdChk] = useState();
-  const [pwChk, setPwChk] = useState();
-  const [nickChk, setNickChk] = useState();
 
   const navigate = useNavigate();
   //아이디 유효성 검사  5~16자리 숫자. 영문 혼합
@@ -34,7 +30,7 @@ const SignUpPage = () => {
     else setIdMsg(true);
     setId(e.target.value);
   };
-  //비밀번호 유효성 검사 8~16자리 숫자,영문,특수문자 혼합 <LoginSigninDbtn>가입하기</LoginSigninDbtn>
+  //비밀번호 유효성 검사 8~16자리 숫자,영문,특수문자 혼합
   const PwVaildation = (e) => {
     const PwCheck =
       /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
@@ -44,22 +40,11 @@ const SignUpPage = () => {
   };
 
   const NickVaildation = (e) => {
-    if(e.target.value !== "") setNickChk(false)
-    else setNickChk(true)
+    if(e.target.value !== "") setNickMsg(false)
+    else setNickMsg(true)
     setNickName(e.target.value)
-
-
   }
-  const CombineValidation = () => {
-    if (!id) setIdMsg(true);
-    if (!pw) setPwMsg(true);
-    if (!nickName) setNickMsg(true);
-    if (id && pw && nickMsg) return true;
-    else return false;
-  };
 
-  console.log(idMsg, pwMsg, nickMsg);
-  console.log(id,pw,nickName)
   return (
     <LoginSigninBox>
       <Title>회원가입</Title>
@@ -124,8 +109,8 @@ const SignUpPage = () => {
           onChange={NickVaildation}
         />
       </InputWrapper>
-          {idMsg === false && pwMsg === false && nickMsg === false && id !== undefined
-          && pw !== undefined && nickName !== undefined ? (
+          {idMsg === false && pwMsg === false && nickMsg === false && id !== ""
+          && pw !== "" && nickName !== "" ? (
             <LoginSigninBtn>가입하기</LoginSigninBtn>
           ):(
             <LoginSigninDbtn>가입하기</LoginSigninDbtn>
