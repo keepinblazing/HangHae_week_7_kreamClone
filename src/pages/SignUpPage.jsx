@@ -15,11 +15,11 @@ import {
 const SignUpPage = () => {
   //아이디, 비밀번호, 패스워드
   const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [nickname, setNickName] = useState("");
+  const [pw, setPw] = useState("");
+  const [nickName, setNickName] = useState("");
   //오류메세지
   const [idMsg, setIdMsg] = useState(false);
-  const [passwordMsg, setPasswordMsg] = useState(false);
+  const [pwMsg, setPwMsg] = useState(false);
   const [nickMsg, setNickMsg] = useState(false);
 
   const navigate = useNavigate();
@@ -31,12 +31,12 @@ const SignUpPage = () => {
     setId(e.target.value);
   };
   //비밀번호 유효성 검사 8~16자리 숫자,영문,특수문자 혼합
-  const PasswordVaildation = (e) => {
-    const PasswordCheck =
+  const PwVaildation = (e) => {
+    const PwCheck =
       /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
-    if (!e.target.value || PasswordCheck.test(e.target.value)) setPasswordMsg(false);
-    else setPasswordMsg(true);
-    setPassword(e.target.value);
+    if (!e.target.value || PwCheck.test(e.target.value)) setPwMsg(false);
+    else setPwMsg(true);
+    setPw(e.target.value);
   };
 
   const NickVaildation = (e) => {
@@ -44,25 +44,7 @@ const SignUpPage = () => {
     else setNickMsg(true)
     setNickName(e.target.value)
   }
-  const SignUp = () => {
-    const data = {
-      id,
-      password,
-      nickname,
-    };
 
-    return instance
-      .post("/users/signup", data)
-      .then((response) => {
-        console.log(response);
-        alert("가입완료");
-        navigate("/login");
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(error);
-      });
-  };
   return (
     <LoginSigninBox>
       <Title>회원가입</Title>
@@ -92,13 +74,13 @@ const SignUpPage = () => {
         {idMsg && <Msg>올바른 아이디 형식으로 입력해주세요.</Msg>}
       </InputWrapper>
       <InputWrapper>
-        {passwordMsg === true ? (
+        {pwMsg === true ? (
           <>
             <Label style={{ color: "#ef6253" }}>비밀번호</Label>
             <LoginSigninInput
               type="password"
-              value={password || ""}
-              onChange={PasswordVaildation}
+              value={pw || ""}
+              onChange={PwVaildation}
               style={{ borderBottomColor: "#ef6253" }}
             />
           </>
@@ -108,13 +90,13 @@ const SignUpPage = () => {
             <LoginSigninInput
               type="password"
               placeholder="영문, 숫자, 특수문자 조합 8~16자"
-              value={password || ""}
-              onChange={PasswordVaildation}
+              value={pw || ""}
+              onChange={PwVaildation}
             />
           </>
         )}
 
-        {passwordMsg && (
+        {pwMsg && (
           <Msg>영문, 숫자, 특수문자를 조합하여 입력해주세요.(8~16자)</Msg>
         )}
       </InputWrapper>
@@ -122,14 +104,14 @@ const SignUpPage = () => {
         <Label>닉네임</Label>
         <LoginSigninInput
           type="text"
-          value={nickname || ""}
+          value={nickName || ""}
           placeholder="닉네임을 입력해주세요"
           onChange={NickVaildation}
         />
       </InputWrapper>
-          {idMsg === false && passwordMsg === false && nickMsg === false && id !== ""
-          && password !== "" && nickname !== "" ? (
-            <LoginSigninBtn onClick={SignUp}>가입하기</LoginSigninBtn>
+          {idMsg === false && pwMsg === false && nickMsg === false && id !== ""
+          && pw !== "" && nickName !== "" ? (
+            <LoginSigninBtn>가입하기</LoginSigninBtn>
           ):(
             <LoginSigninDbtn>가입하기</LoginSigninDbtn>
           )}
