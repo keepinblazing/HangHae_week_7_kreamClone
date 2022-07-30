@@ -34,8 +34,8 @@ export const LoginSigninInput = styled.input`
   }
   ::placeholder {
     font-size: 0.9rem;
- 
   }
+ 
 `;
 export const LoginSigninBtn = styled.button`
   width: 25rem;
@@ -49,14 +49,11 @@ export const LoginSigninBtn = styled.button`
   margin-top: 1rem;
   font-size: 1rem;
   font-weight: bold;
+  cursor: pointer; 
 `;
 export const Label = styled.h3`
   display: block;
   font-weight: bold;
   font-size: 0.8rem;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
   letter-spacing: 0.1rem;
 `;

@@ -53,7 +53,7 @@ const SecondHeader = styled.div`
 
 const Home = styled.button`
   text-decoration: none;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: bold;
   font-style: italic;
   background-color : transparent;

@@ -23,7 +23,7 @@ const LoginPage = () => {
       </InputWrapper>
       <InputWrapper>
       <Label >비밀번호</Label>
-      <LoginSigninInput placeholder="영문, 숫자, 특수문자 조합 8~16자"/>
+      <LoginSigninInput  type="password" placeholder="영문, 숫자, 특수문자 조합 8~16자"/>
       </InputWrapper>
       <InputWrapper>
       <Label>닉네임</Label>
