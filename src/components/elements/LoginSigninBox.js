@@ -57,3 +57,10 @@ export const Label = styled.h3`
   font-size: 0.8rem;
   letter-spacing: 0.1rem;
 `;
+
+export const Msg = styled.div`
+
+color : red;
+font-size : 0.8rem;
+
+`;
