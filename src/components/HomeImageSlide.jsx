@@ -1,73 +1,139 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Component } from "react";
+import Slider from "react-slick";
 import styled from "styled-components";
-import img2 from "../images/2.jpeg";
-import img3 from "../images/3.jpeg";
-import img4 from "../images/4.jpeg";
-import img5 from "../images/5.jpeg";
-import img6 from "../images/6.jpeg";
-import img7 from "../images/7.jpeg";
 
-const HomeImageSlide = () => {
-  const totalSlide = 5;
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const slideRef = useRef();
 
-  const nextSlide = () => {
-    currentSlide >= totalSlide
-      ? setCurrentSlide(0)
-      : setCurrentSlide(currentSlide + 1);
-  };
+export default class HomeImageSlide extends Component {
+  render() {
+    const settings = {
+      dots: true,
+      fade: true,
+      infinite: true,
+      speed: 250,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      arrows: true,
+      
+      responsive: [
+        {
+          breakpoint: 1600,
+          settings: {
+            slidesToShow: 1,
+          },
+        },
+        {
+          breakpoint: 1200,
+          settings: {
+            slidesToShow: 1,
+          },
+        },
+        {
+          breakpoint: 960,
+          settings: {
+            slidesToShow: 1,
+          },
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1,
+          },
+        },
+      ],
+    };
 
-  const prevSlide = () => {
-    currentSlide === 0
-      ? setCurrentSlide(totalSlide)
-      : setCurrentSlide(currentSlide - 1);
-  };
+    return (
+      <Wrapper>
+        <Slider {...settings}>
+          <div>
+            <div style={{display:"flex", backgroundColor:"black", width:"100%", height:"35vh", justifyContent:"center"}}>
+            <img
+              src={
+                "https://kream-phinf.pstatic.net/MjAyMjA3MjdfMjQw/MDAxNjU4ODgzNzA5NTE5.kZ2RDD87cLTtfHWpX_5pQAK-mXbTHtUc72wip5o5rQgg.m0dhhQj747H8fLEVrT_UvrscNzRUCWbcS0TVLx6lwjQg.JPEG/a_fc1fe6d2b1e944b09b523cddfb718566.jpg?type=m_2560"
+              }
+              
+              alt=""/>
+     
+            </div>
+          </div>
+          <div>
+          <div style={{display:"flex", backgroundColor:"#0568DF", width:"100%", height:"35vh", justifyContent:"center"}}>
+            <img
+              src={
+                "https://kream-phinf.pstatic.net/MjAyMjA3MjlfNzUg/MDAxNjU5MDgzNjg1NzU1.K8UQe_1XIB7cjIm9Ft-c5xfsZ1PpPkN_lTX84zVd7HEg.pOIHVaAivuTpn4JbkcSGKdPp4Hgh_NOF02HsJhUc4Pwg.JPEG/a_d397a1f77ec848738b9bae9ff240dc8b.jpg?type=m_2560"
+              }
+             
+              alt=""
+            />
+            </div>
+          </div>
+          
+          <div>
+          <div style={{display:"flex", backgroundColor:"#C9CDD6", width:"100%", height:"35vh", justifyContent:"center"}}>
+            <img
+              src={
+                "https://kream-phinf.pstatic.net/MjAyMjA3MjdfMTAg/MDAxNjU4OTEzOTYwMTQ0.JDLvPUcF6HhuYwFylUDm7SoDliZB9jYfmEIKWHZ1ilgg.FYbUeZIDZBl2XFmYnrsMhX-jeb1xuOu3BrvhkmWNi94g.JPEG/a_d09e5a095f6d49caa3fc09c6d6cc29dc.jpg?type=m_2560"
+              }
+             
+              alt=""
+            />
+            </div>
+          </div>
+          <div>
+          <div style={{display:"flex", backgroundColor:"#F4F1E2", width:"100%", height:"35vh", justifyContent:"center"}}>
+            <img
+              src={
+                "https://kream-phinf.pstatic.net/MjAyMjA3MjVfMTY5/MDAxNjU4NzM4NzQ4MTQ3.NKmkuL3uSrQemYhtLZWc8mEaBBz4XSveeyAA0AIs6z4g.0lw8da4wydWDTQ9CxgMfn3VYcJ9Ik2fG5jWAw8MuK00g.JPEG/a_064940215a0f4734b5ede9b9b973d8c9.jpg?type=m_2560"
+              }
+              alt=""
+            />
+            </div>
+          </div>
+          <div>
+          <div style={{display:"flex", backgroundColor:"black", width:"100%", height:"35vh", justifyContent:"center"}}>
+            <img
+              src={
+                "https://kream-phinf.pstatic.net/MjAyMjA3MjlfMjk5/MDAxNjU5MDYzNjU5ODc4.TonFcfhSmIhezIckmLvRl7OFZFQLBKo9UPVGNj3uRBIg.hgW9mVxYIHi0xNIVtQTOPh19hUzHbU4jGPV6IPxTFL4g.JPEG/a_b10ebb01a12044e7a8a42c66caf22a0c.jpg?type=m_2560"
+              }
+              alt=""
+            />
+            </div>
+          </div>
+          <div>
+          <div style={{display:"flex", backgroundColor:"#34302D", width:"100%", height:"35vh", justifyContent:"center"}}>
+            <img
+              src={
+                "https://kream-phinf.pstatic.net/MjAyMjA3MjFfNTMg/MDAxNjU4MzgyOTg0MjE3.vfor0-_-8X7IdfkxX5KDk1uonWExOZyOcKFtATwAleAg.3qElZ4DdZksnrq9idEPT8MP_4ggds7MOflg1OhgsxrMg.JPEG/a_bcaf6b515384429c8f245129082bece4.jpg?type=m_2560"
+              }
+              alt=""
+            />
+            </div>
+          </div>
+        </Slider>
+        </Wrapper>
+    );
+  }
+}
 
-  useEffect(() => {
-    slideRef.current.style.transition = "all 0.5s ease-in-out";
-    slideRef.current.style.transform = `translate(-${currentSlide}00%)`;
-  }, [currentSlide]);
+const Wrapper = styled.div`
 
-  return (
-    <SliderContainer ref={slideRef}>
-      <Img src={img2} />
-      <Img src={img3} />
-      <Img src={img4} />
-      <Img src={img5} />
-      <Img src={img6} />
-      <Img src={img7} />
-    </SliderContainer>
-  );
-};
+.slick-dots {
 
-export default HomeImageSlide;
+  bottom : 1rem ;
 
-const SliderContainer = styled.div`
-  overflow: hidden;
-  display: flex;
-`;
+}
+.slick-prev {
 
-// const ImgContainer = styled.div`
-//   background-color: #c9cdd6;
-//   justify-content : center;
-// `;
-// const ImgContainer2 = styled(ImgContainer)`
-//   background-color: #f4f1e2;
-// `;
-// const ImgContainer3 = styled(ImgContainer)`
-//   background-color: #dad4c6;
-// `;
-// const ImgContainer4 = styled(ImgContainer)`
-//   background-color: black;
-// `;
-// const ImgContainer5 = styled(ImgContainer)`
-//   background-color: black;
-// `;
-// const ImgContainer6 = styled(ImgContainer)`
-//   background-color: #0568df;
-// `;
-const Img = styled.img`
-  width: 100%;
-  height: 35vh;
+  left : 0px;
+  z-index : 1;
+}
+.slick-next {
+
+  right : 0px;
+  z-index : 1;
+  
+}
+
+
 `;

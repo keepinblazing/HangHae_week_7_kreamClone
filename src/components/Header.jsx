@@ -1,11 +1,15 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+
+
   return (
     <MainHeader>
       <FirstHeader>
         <Login>로그아웃</Login>
-        <Login>로그인</Login>
+        <Login onClick={()=> {navigate("/login")}}>로그인</Login>
       </FirstHeader>
       <SecondHeader>
         <MenuBox>
@@ -43,6 +47,8 @@ const SecondHeader = styled.div`
   height: 68px;
   background-color: white;
   border: 1.2px solid #c9cdd6;
+  border-bottom : transparent;
+  border-right : transparent;
 `;
 
 const Home = styled.div`
