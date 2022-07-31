@@ -118,6 +118,7 @@ export default class HomeImageSlide extends Component {
 
 const Wrapper = styled.div`
 
+
 .slick-dots {
 
   bottom : 1rem ;

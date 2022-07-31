@@ -50,8 +50,10 @@ const Header = () => {
 };
 
 const MainHeader = styled.div`
-  position: relative;
+  position: sticky;
   top: 0;
+  left : 0;
+  right : 0;
   width: 100%;
   z-index: 2;
 `;
@@ -72,7 +74,7 @@ const SecondHeader = styled.div`
   height: 68px;
   background-color: white;
   border: 1.2px solid #c9cdd6;
-  border-bottom: transparent;
+  border-bottom: 1.2px solid #c9cdd6;
   border-right: transparent;
 `;
 
