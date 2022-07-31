@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
 
-
 export default class HomeImageSlide extends Component {
   render() {
     const settings = {
@@ -14,7 +13,7 @@ export default class HomeImageSlide extends Component {
       slidesToScroll: 1,
       autoplay: true,
       arrows: true,
-      
+
       responsive: [
         {
           breakpoint: 1600,
@@ -128,12 +127,28 @@ const Wrapper = styled.div`
 
   left : 0px;
   z-index : 1;
+
+  & ::before{
+
+    content : url("")
+
+
+  }
+
 }
 .slick-next {
 
   right : 0px;
   z-index : 1;
   
+  & ::before{
+
+content : url("")
+
+
+}
+
+
 }
 
 

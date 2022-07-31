@@ -53,7 +53,6 @@ const MainHeader = styled.div`
   position: sticky;
   top: 0;
   left : 0;
-  right : 0;
   width: 100%;
   z-index: 2;
 `;
@@ -61,36 +60,38 @@ const FirstHeader = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding-right: 65px;
-  height: 30px;
+  padding-right: 4rem;
+  height: 1.8rem;
   background-color: white;
 `;
 
 const SecondHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-right: 50px;
-  padding-left: 50px;
-  height: 68px;
+  padding-right: 2.8rem;
+  padding-left: 2.8rem;
+  height: 4.2rem;
   background-color: white;
   border: 1.2px solid #c9cdd6;
   border-bottom: 1.2px solid #c9cdd6;
   border-right: transparent;
 `;
 
-const Home = styled.button`
+const Home = styled.div`
   text-decoration: none;
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-weight: bold;
   font-style: italic;
   background-color: transparent;
   border: none;
-  cursor: pointer;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const Login = styled.div`
-  margin-left: 10px;
-  font-size: 11px;
+  margin-left: 0.6rem;
+  font-size: 0.75rem;
   :hover {
     cursor: pointer;
   }
@@ -103,16 +104,16 @@ const MenuBox = styled.div`
 `;
 
 const Shop = styled.div`
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 1.2rem;
+  margin-right: 1.2rem;
   :hover {
     cursor: pointer;
   }
 `;
 
 const About = styled.div`
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 1.2rem;
+  margin-right: 1.2rem;
 `;
 
 export default Header;

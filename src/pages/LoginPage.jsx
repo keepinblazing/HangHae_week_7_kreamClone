@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { login } from "../redux/modules/user";
+// import { useDispatch } from "react-redux";
+// import { login } from "../redux/modules/user";
 import { useNavigate } from "react-router-dom";
 import {
   LoginSigninBox,
@@ -23,7 +23,7 @@ const LoginPage = () => {
   const [passwordMsg, setPasswordMsg] = useState(false);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   //아이디 유효성검사
   const IdVaildation = (e) => {
@@ -44,22 +44,22 @@ const LoginPage = () => {
   };
   //로그인
   const LogIn = () => {
-    const data = {
+    const userInfo = {
       id,
       password,
     };
 
     instance
-      .post("/api/users/login", data)
+      .post("/api/users/login", userInfo)
       .then((response) => {
         console.log(response)
-        localStorage.setItem("user", JSON.stringify(response.data));
-        dispatch(
-          login({
-            id: response.data.id,
-            nickname: response.data.nickname,
-          })
-        );
+        localStorage.setItem("user", JSON.stringify(response.userInfo));
+        // dispatch(
+        //   login({
+        //     id: response.userInfo.id,
+        //     nickname: response.userInfo.nickname,
+        //   })
+        // );
         navigate("/");
       })
       .catch((error) => {
@@ -69,7 +69,7 @@ const LoginPage = () => {
   };
   return (
     <LoginSigninBox>
-      <Home>IsKream</Home>
+      <Home>IsKREAM</Home>
       <HomeSub>I's KICKS RULE EVERYTHING AROUND ME</HomeSub>
       <InputWrapper>
         {idMsg === true ? (

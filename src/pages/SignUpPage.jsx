@@ -45,14 +45,14 @@ const SignUpPage = () => {
     setNickName(e.target.value)
   }
   const SignUp = () => {
-    const data = {
+    const userInfo = {
       id,
       password,
       nickname,
     };
 
     return instance
-      .post("/api/users/signup", data)
+      .post("/api/users/signup", userInfo)
       .then((response) => {
         console.log(response);
         alert("회원가입이 완료되었습니다!");
