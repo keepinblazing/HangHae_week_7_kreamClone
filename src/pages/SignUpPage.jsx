@@ -52,14 +52,14 @@ const SignUpPage = () => {
     };
 
     return instance
-      .post("/users/signup", data)
+      .post("/api/users/signup", data)
       .then((response) => {
-        console.log(response);
-        alert("가입완료");
+        // console.log(response);
+        alert("회원가입이 완료되었습니다!");
         navigate("/login");
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         alert(error);
       });
   };

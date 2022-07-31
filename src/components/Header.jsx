@@ -1,19 +1,44 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/modules/user";
+
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.isLogin);
 
+  const LogOut = () => {
+    dispatch(logout());
+    localStorage.removeItem("user");
+    navigate("/");
+  };
 
   return (
     <MainHeader>
       <FirstHeader>
-        <Login>로그아웃</Login>
-        <Login onClick={()=> {navigate("/login")}}>로그인</Login>
+        {is_login === true ? (
+          <Login>로그아웃</Login>
+        ) : (
+          <Login
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            로그인
+          </Login>
+        )}
       </FirstHeader>
       <SecondHeader>
         <MenuBox>
-          <Home onClick={()=>{navigate("/")}}>IsKREAM</Home>
+          <Home
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            IsKREAM
+          </Home>
         </MenuBox>
         <MenuBox>
           <Shop>SHOP</Shop>
@@ -47,8 +72,8 @@ const SecondHeader = styled.div`
   height: 68px;
   background-color: white;
   border: 1.2px solid #c9cdd6;
-  border-bottom : transparent;
-  border-right : transparent;
+  border-bottom: transparent;
+  border-right: transparent;
 `;
 
 const Home = styled.button`
@@ -56,9 +81,9 @@ const Home = styled.button`
   font-size: 2.2rem;
   font-weight: bold;
   font-style: italic;
-  background-color : transparent;
-  border : none;
-  cursor : pointer;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 `;
 
 const Login = styled.div`

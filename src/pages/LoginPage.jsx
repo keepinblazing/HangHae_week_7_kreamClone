@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux"
+import {login} from "../redux/modules/user"
 import { useNavigate } from "react-router-dom";
 import {
   LoginSigninBox,
@@ -10,6 +12,7 @@ import {
   InputWrapper,
   Msg,
 } from "../components/elements/LoginSigninBox";
+import instance from "../axiosConfig";
 
 const LoginPage = () => {
   //아이디, 비밀번호, 패스워드
@@ -20,13 +23,16 @@ const LoginPage = () => {
   const [passwordMsg, setPasswordMsg] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+ //아이디 유효성검사
   const IdVaildation = (e) => {
     const IdCheck = /^[a-z]+[a-z0-9]{5,19}$/g;
     if (!e.target.value || IdCheck.test(e.target.value)) setIdMsg(false);
     else setIdMsg(true);
     setId(e.target.value);
   };
+
   //비밀번호 유효성 검사 8~16자리 숫자,영문,특수문자 혼합
   const PasswordVaildation = (e) => {
     const PasswordCheck =
@@ -36,7 +42,27 @@ const LoginPage = () => {
     else setPasswordMsg(true);
     setPassword(e.target.value);
   };
+  //로그인
+  const LogIn = () => {
+    const data = {
+      id,
+      password,
+    };
 
+    instance.post("/api/users/login", data).then((response) => {
+        localStorage.setItem("user", JSON.stringify(response.data));
+        dispatch(
+          login({
+            id: response.data.id,
+            nickname: response.data.nickname,
+          })
+        );
+        navigate("/");
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
   return (
     <LoginSigninBox>
       <Home>IsKream</Home>
@@ -100,7 +126,7 @@ const LoginPage = () => {
       passwordMsg === false &&
       id !== "" &&
       password !== "" ? (
-        <LoginSigninBtn>로그인</LoginSigninBtn>
+        <LoginSigninBtn onClick={LogIn}>로그인</LoginSigninBtn>
       ) : (
         <LoginSigninDbtn>로그인</LoginSigninDbtn>
       )}
