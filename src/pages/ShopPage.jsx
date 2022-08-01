@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import instance from "../axiosConfig";
 
 const ShopPage = () => {
+  const [posts, setPost] = useState([]);
+  const [searchParams, setSearchParms] = useSearchParams();
+
+  useEffect(() => {
+    const page_number = searchParams.get("page");
+    const getPost = async () => {
+      const { data } = await instance.get(`/api/products?page=${page_number}`);
+      return data;
+    };
+
+    getPost().then((result) => setPost(result));
+  }, []);
+
   return (
     <>
       <MainHeader>
@@ -13,20 +28,21 @@ const ShopPage = () => {
       </MainHeader>
       <Warpper>
         <Container>
-          <ItemContainer>
-            <SubItem>
-              <Item>
-                <img src="https://kream-phinf.pstatic.net/MjAyMjA2MTVfMjYw/MDAxNjU1MjgzNjk2Mzk3.gh8n5rs7p-pWVqzIhNh7yj_KdyjLFBeJr9QbsDumoFEg.KdvPfvgBYmjm7MKKhcbIEQIP6FGeuof_GnmcDUgrvyAg.PNG/a_baa1ccea3726495badba419dfede63f9.png?type=m_webp" alt=""/>
-              </Item>
-
-              <Itemdesc>
-                <ItemName>Jordan</ItemName>
-                <ItemFullName>Jordan 1 Retro High OG Black Mocha</ItemFullName>
-                <ItemPrice>568,000원</ItemPrice>
-                <RightNow>즉시구매가</RightNow>
-              </Itemdesc>
-            </SubItem>
-          </ItemContainer>
+          {posts.map((item) => (
+            <ItemContainer key={item.id}>
+              <SubItem>
+                <Item>
+                  <img src={item.thumbnail} alt="" />
+                </Item>
+                <Itemdesc>
+                  <ItemName>{item.product_brand}</ItemName>
+                  <ItemFullName>{item.product_name_eng}</ItemFullName>
+                  <ItemPrice>{item.product_priec}원</ItemPrice>
+                  <RightNow>즉시구매가</RightNow>
+                </Itemdesc>
+              </SubItem>
+            </ItemContainer>
+          ))}
         </Container>
       </Warpper>
     </>

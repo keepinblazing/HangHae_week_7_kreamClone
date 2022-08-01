@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/modules/user";
 
-
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -41,7 +40,7 @@ const Header = () => {
           </Home>
         </MenuBox>
         <MenuBox>
-          <Shop onClick={()=> navigate("/shop")}>SHOP</Shop>
+          <Shop onClick={() => navigate("/shop")}>SHOP</Shop>
           <About>ABOUT</About>
         </MenuBox>
       </SecondHeader>
@@ -52,7 +51,7 @@ const Header = () => {
 const MainHeader = styled.div`
   position: sticky;
   top: 0;
-  left : 0;
+  left: 0;
   width: 100%;
   z-index: 2;
 `;

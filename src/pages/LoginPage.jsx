@@ -52,7 +52,7 @@ const LoginPage = () => {
     instance
       .post("/api/users/login", userInfo)
       .then((response) => {
-        console.log(response)
+        console.log(response);
         localStorage.setItem("user", JSON.stringify(response.userInfo));
         // dispatch(
         //   login({
@@ -63,7 +63,7 @@ const LoginPage = () => {
         navigate("/");
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         alert(error);
       });
   };

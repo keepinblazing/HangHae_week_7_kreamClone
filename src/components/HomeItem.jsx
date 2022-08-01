@@ -1,21 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import instance from "../axiosConfig";
 
 const HomeItem = () => {
+  const [posts, setPost] = useState([]);
 
-useEffect(() => {
-    instance.get(`/api/product/recent`)
+  useEffect(() => {
+    const getPost = async () => {
+      const { data } = await instance.get(`/api/products/recent`);
+      return data;
+    };
 
-
-
-
-
-})
-
-
-
-
+    getPost().then((result) => setPost(result));
+  }, []);
 
   return (
     <Warpper>
@@ -24,24 +21,21 @@ useEffect(() => {
           <Title>Just Registered</Title>
           <SubTitle>최근 등록 상품</SubTitle>
         </TitleContainer>
-
-        <ItemContainer>
-          <SubItem>
-          
-            <Item>
- <img src ="https://kream-phinf.pstatic.net/MjAyMjA2MTVfMjYw/MDAxNjU1MjgzNjk2Mzk3.gh8n5rs7p-pWVqzIhNh7yj_KdyjLFBeJr9QbsDumoFEg.KdvPfvgBYmjm7MKKhcbIEQIP6FGeuof_GnmcDUgrvyAg.PNG/a_baa1ccea3726495badba419dfede63f9.png?type=m_webp" alt=""/>
-
-            </Item>
-           
-            <Itemdesc>
-              <ItemName>Jordan</ItemName>
-              <ItemFullName>Jordan 1 Retro High OG Black Mocha</ItemFullName>
-              <ItemPrice>568,000원</ItemPrice>
-              <RightNow>즉시구매가</RightNow>
-            </Itemdesc>
-          </SubItem>
-          
-        </ItemContainer>
+        {posts.map((item) => (
+          <ItemContainer key={item.id}>
+            <SubItem>
+              <Item>
+                <img src={item.thumbnail} alt="" />
+              </Item>
+              <Itemdesc>
+                <ItemName>{item.product_brand}</ItemName>
+                <ItemFullName>{item.product_name_eng}</ItemFullName>
+                <ItemPrice>{item.product_priec}원</ItemPrice>
+                <RightNow>즉시구매가</RightNow>
+              </Itemdesc>
+            </SubItem>
+          </ItemContainer>
+        ))}
       </Container>
     </Warpper>
   );
@@ -51,22 +45,19 @@ export default HomeItem;
 
 const Warpper = styled.section`
   max-width: 1280px;
-
   display: block;
   margin: 0 auto;
-    margin-top : 5rem;
-    margin-bottom : 5rem;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
 `;
 
 const Container = styled.div`
   position: relative;
   margin: auto;
-
   width: 100%;
-
   box-sizing: border-box;
-
 `;
+
 const TitleContainer = styled.div`
   margin: 0 auto;
   padding: 1rem;
@@ -77,7 +68,7 @@ const Title = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
   letter-spacing: -0.1px;
-  margin-bottom : 0.1rem;
+  margin-bottom: 0.1rem;
 `;
 
 const SubTitle = styled.div`
@@ -105,9 +96,9 @@ const Item = styled.div`
   height: 18rem;
   border-radius: 1rem;
   margin: auto;
-  display : flex;
-
+  display: flex;
 `;
+
 const Itemdesc = styled.div`
   padding: 1rem;
 `;
@@ -118,6 +109,7 @@ const ItemName = styled.div`
   text-decoration: underline;
   margin-bottom: 0.5rem;
 `;
+
 const ItemFullName = styled.div`
   font-size: 0.8rem;
   margin-bottom: 0.5rem;
@@ -131,4 +123,3 @@ const RightNow = styled.div`
   font-size: 0.75rem;
   color: gray;
 `;
-
