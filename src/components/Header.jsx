@@ -19,7 +19,7 @@ const Header = () => {
     <MainHeader>
       <FirstHeader>
         {is_login === true ? (
-          <Login>로그아웃</Login>
+          <Login onClick={LogOut}>로그아웃</Login>
         ) : (
           <Login
             onClick={() => {
@@ -41,7 +41,7 @@ const Header = () => {
           </Home>
         </MenuBox>
         <MenuBox>
-          <Shop>SHOP</Shop>
+          <Shop onClick={()=> navigate("/shop")}>SHOP</Shop>
           <About>ABOUT</About>
         </MenuBox>
       </SecondHeader>
@@ -73,7 +73,7 @@ const SecondHeader = styled.div`
   height: 4.2rem;
   background-color: white;
   border: 1.2px solid #c9cdd6;
-  border-bottom: 1.2px solid #c9cdd6;
+  border-bottom: transparent;
   border-right: transparent;
 `;
 
