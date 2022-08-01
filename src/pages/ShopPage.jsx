@@ -1,56 +1,51 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
-// import { useSearchParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import instance from "../axiosConfig";
 
 const ShopPage = () => {
-  const obsRef = useRef(null);
-
-  const [page, setPage] = useState(1);
-  const [load, setLoad] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(1);
 
-  const preventRef = useRef(true);
-  const endRef = useRef(false);
-  // const [searchParams, setSearchParms] = useSearchParams();
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(obsHandler, { threshold: 0.5 });
-    if (obsRef.current) observer.observe(obsRef.current);
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+    console.log("스크롤 이벤트 발생");
 
-  // useEffect(()=> {
-  //   getPost();
-  // },[page])
-
-  const obsHandler = (entries) => {
-    const target = entries[0];
-    if (!endRef.current && target.isIntersecting && preventRef.current) {
-      preventRef.current = false;
+    if (scrollTop + clientHeight >= scrollHeight) {
+      console.log("페이지 끝에 스크롤이 닿았음");
       setPage((prev) => prev + 1);
+    }
+  };
+  const getRandomImageThenSet = async () => {
+    try {
+      const { data } = await instance.get(`/api/products?page=${page}`);
+      setPosts(posts.concat(data));
+    } catch {
+      console.error("fetching error");
     }
   };
 
   useEffect(() => {
-    if (page !== 1) getPost();
+    console.log("page ? ", page);
+    getRandomImageThenSet();
   }, [page]);
 
-  const getPost = useCallback(async () => {
-    setLoad(true);
-    // const page_number = searchParams.get("page");
-    const response = await instance.get(`/api/products?page=${page}`);
-    if (response.data) {
-      if (response.data.end) {
-        endRef.current = true;
-      }
-      setPosts((prev) => [...prev, ...response.data.posts]);
-      preventRef.current = true;
-    }
-    setLoad(false);
-  }, [page]);
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // const getPost = async () => {
+
+  //   return data;
+  // };
+
+  // getPost().then((result) => setPosts(result));
+  // console.log(posts)
 
   return (
     <>
@@ -62,10 +57,10 @@ const ShopPage = () => {
         </SecondHeader>
       </MainHeader>
       <Warpper>
-        {posts && (
-          <Container>
+        <Container>
+          <ItemContainer>
             {posts.map((item, index) => (
-              <ItemContainer key={item.id}>
+              <div key={item.id + index}>
                 <SubItem>
                   <Item>
                     <img src={item.thumbnail} alt="" />
@@ -77,13 +72,10 @@ const ShopPage = () => {
                     <RightNow>즉시구매가</RightNow>
                   </Itemdesc>
                 </SubItem>
-              </ItemContainer>
+              </div>
             ))}
-          </Container>
-        )}
-        {load ? <div>로딩중</div> : <> </>}
-
-        <div ref={obsRef}></div>
+          </ItemContainer>
+        </Container>
       </Warpper>
     </>
   );
@@ -124,7 +116,6 @@ const MenuBox = styled.div`
 
 const Warpper = styled.section`
   max-width: 1280px;
-
   display: block;
   margin: 0 auto;
   margin-top: 5rem;
@@ -134,9 +125,7 @@ const Warpper = styled.section`
 const Container = styled.div`
   position: relative;
   margin: auto;
-
   width: 100%;
-
   box-sizing: border-box;
 `;
 
@@ -161,6 +150,7 @@ const Item = styled.div`
   margin: auto;
   display: flex;
 `;
+
 const Itemdesc = styled.div`
   padding: 1rem;
 `;
@@ -171,6 +161,7 @@ const ItemName = styled.div`
   text-decoration: underline;
   margin-bottom: 0.5rem;
 `;
+
 const ItemFullName = styled.div`
   font-size: 0.8rem;
   margin-bottom: 0.5rem;

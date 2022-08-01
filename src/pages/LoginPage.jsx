@@ -53,6 +53,9 @@ const LoginPage = () => {
       .post("/api/users/login", userInfo)
       .then((response) => {
         console.log(response);
+        if (response.data.status !== 200){
+          alert(response.data.msg)
+        }else{
         localStorage.setItem("user", (response.data.token));
         dispatch(
           login({
@@ -60,12 +63,10 @@ const LoginPage = () => {
             nickname: response.data.nickname,
           })
         );
+        alert(response.data.msg)
         navigate("/");
+        }
       })
-      .catch((error) => {
-        console.log(error);
-        alert(error);
-      });
   };
   return (
     <LoginSigninBox>
@@ -119,7 +120,6 @@ const LoginPage = () => {
             />
           </>
         )}
-
         {passwordMsg && (
           <Msg>영문, 숫자, 특수문자를 조합하여 입력해주세요.(8~16자)</Msg>
         )}

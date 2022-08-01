@@ -12,6 +12,7 @@ const HomeItem = () => {
     };
 
     getPost().then((result) => setPosts(result));
+    console.log(posts)
   }, []);
 
   return (
@@ -21,25 +22,23 @@ const HomeItem = () => {
           <Title>Just Registered</Title>
           <SubTitle>최근 등록 상품</SubTitle>
         </TitleContainer>
-       
-          <ItemContainer>
-          {posts.map((item, index) => (
-            <div  key={item.id}>
-            <SubItem>
-              <Item>
-                <img src={item.thumbnail} alt="" />
-              </Item>
-              <Itemdesc>
-                <ItemName>{item.product_brand}</ItemName>
-                <ItemFullName>{item.product_name_eng}</ItemFullName>
-                <ItemPrice>{item.product_price}원</ItemPrice>
-                <RightNow>즉시구매가</RightNow>
-              </Itemdesc>
-            </SubItem>
+        <ItemContainer>
+          {posts.map((item) => (
+            <div key={item.id}>
+              <SubItem>
+                <Item>
+                  <img src={item.thumbnail} alt="" />
+                </Item>
+                <Itemdesc>
+                  <ItemName>{item.product_brand}</ItemName>
+                  <ItemFullName>{item.product_name_eng}</ItemFullName>
+                  <ItemPrice>{item.product_price}원</ItemPrice>
+                  <RightNow>즉시구매가</RightNow>
+                </Itemdesc>
+              </SubItem>
             </div>
-        
-        ))}
-          </ItemContainer>
+          ))}
+        </ItemContainer>
       </Container>
     </Warpper>
   );

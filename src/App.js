@@ -1,5 +1,4 @@
-import "./App.css";
-import React, { useEffect } from "react";
+import React, { useEffect , useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import instance from "./axiosConfig";
@@ -18,6 +17,7 @@ import ProductSellPage from "./pages/ProductSellPage";
 function App() {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.isLogin);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("user");

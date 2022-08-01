@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/modules/user";
@@ -7,6 +8,7 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.isLogin);
+  const [page, setPage] = useState(1);
 
   const LogOut = () => {
     dispatch(logout());
@@ -40,7 +42,7 @@ const Header = () => {
           </Home>
         </MenuBox>
         <MenuBox>
-          <Shop onClick={() => navigate(`/products`)}>SHOP</Shop>
+          <Shop onClick={() => navigate(`/products?page=${page}`)}>SHOP</Shop>
           <About>ABOUT</About>
         </MenuBox>
       </SecondHeader>
