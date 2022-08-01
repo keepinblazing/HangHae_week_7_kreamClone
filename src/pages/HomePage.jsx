@@ -1,3 +1,4 @@
+
 import React from "react";
 import HomeImageSlider from "../components/HomeImageSlide";
 import HomeItem from "../components/HomeItem";
@@ -15,3 +16,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+

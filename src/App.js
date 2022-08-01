@@ -10,6 +10,10 @@ import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import ShopPage from "./pages/ShopPage";
+import ProductPage from "./pages/ProductPage";
+import ProductBuyPage from "./pages/ProductBuyPage";
+import ProductSellPage from "./pages/ProductSellPage";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -42,6 +46,9 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/products" element={<ShopPage/>}/>
+        <Route path="/product/" element={<ProductPage/>}/>
+        <Route path="/product/buy/" element={<ProductBuyPage/>}/>
+        <Route path="/product/sell/" element={<ProductSellPage/>}/>
       </Routes>
       <Footer />
     </>
