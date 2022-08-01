@@ -1,7 +1,6 @@
-import "./App.css";
-
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
@@ -10,8 +9,32 @@ import LoginPage from "./pages/LoginPage";
 import ProductPage from "./pages/ProductPage";
 import ProductBuyPage from "./pages/ProductBuyPage";
 import ProductSellPage from "./pages/ProductSellPage";
+import instance from "./axiosConfig";
+import { login } from "./redux/modules/user";
 
 function App() {
+  const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.isLogin);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("user");
+    if (is_login === false && accessToken !== null) {
+      instance
+        .get("/api/users/auth", {
+          headers: { Authorization : 'Bearer ' + accessToken },
+        })
+        .then((response) => {
+          console.log(response)
+          dispatch(
+            login({
+              id: response.data.id,
+              nickname: response.data.nickname,
+            })
+          );
+        });
+    }
+  });
+
   return (
     <>
       <Header />
