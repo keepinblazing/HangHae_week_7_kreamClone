@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import instance from "../axiosConfig";
 
 const ShopPage = () => {
+  
+  const navigate = useNavigate();
+  
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
-
+  
   const handleScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
 
-    console.log("스크롤 이벤트 발생");
-
     if (scrollTop + clientHeight >= scrollHeight) {
-      console.log("페이지 끝에 스크롤이 닿았음");
       setPage((prev) => prev + 1);
     }
   };
@@ -37,7 +38,7 @@ const ShopPage = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [page]);
 
   // const getPost = async () => {
 
@@ -60,8 +61,8 @@ const ShopPage = () => {
         <Container>
           <ItemContainer>
             {posts.map((item, index) => (
-              <div key={item.id + index}>
-                <SubItem>
+              <div onClick={()=> navigate("/product/:posts.id")}>
+                <SubItem key={item.id + index}>
                   <Item>
                     <img src={item.thumbnail} alt="" />
                   </Item>
@@ -72,7 +73,7 @@ const ShopPage = () => {
                     <RightNow>즉시구매가</RightNow>
                   </Itemdesc>
                 </SubItem>
-              </div>
+                </div>
             ))}
           </ItemContainer>
         </Container>
