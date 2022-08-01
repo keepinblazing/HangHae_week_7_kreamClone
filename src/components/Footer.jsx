@@ -223,8 +223,10 @@ const Group = styled.div`
   margin-bottom: 1rem;
 `;
 
-const SmallInfo = styled(Info)`
+const SmallInfo = styled.p`
   font-size: 0.8rem;
+  margin-bottom: 0.1rem;
+  color: #bcbcbc;
 `;
 
 export default Footer;

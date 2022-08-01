@@ -1,21 +1,56 @@
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import React, { useEffect, useState, useRef, useCallback } from "react";
+// import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import instance from "../axiosConfig";
 
 const ShopPage = () => {
-  const [posts, setPost] = useState([]);
-  const [searchParams, setSearchParms] = useSearchParams();
+  const obsRef = useRef(null);
+
+  const [page, setPage] = useState(1);
+  const [load, setLoad] = useState(false);
+  const [posts, setPosts] = useState([]);
+
+  const preventRef = useRef(true);
+  const endRef = useRef(false);
+  // const [searchParams, setSearchParms] = useSearchParams();
 
   useEffect(() => {
-    const page_number = searchParams.get("page");
-    const getPost = async () => {
-      const { data } = await instance.get(`/api/products?page=${page_number}`);
-      return data;
+    const observer = new IntersectionObserver(obsHandler, { threshold: 0.5 });
+    if (obsRef.current) observer.observe(obsRef.current);
+    return () => {
+      observer.disconnect();
     };
-
-    getPost().then((result) => setPost(result));
   }, []);
+
+  // useEffect(()=> {
+  //   getPost();
+  // },[page])
+
+  const obsHandler = (entries) => {
+    const target = entries[0];
+    if (!endRef.current && target.isIntersecting && preventRef.current) {
+      preventRef.current = false;
+      setPage((prev) => prev + 1);
+    }
+  };
+
+  useEffect(() => {
+    if (page !== 1) getPost();
+  }, [page]);
+
+  const getPost = useCallback(async () => {
+    setLoad(true);
+    // const page_number = searchParams.get("page");
+    const response = await instance.get(`/api/products?page=${page}`);
+    if (response.data) {
+      if (response.data.end) {
+        endRef.current = true;
+      }
+      setPosts((prev) => [...prev, ...response.data.posts]);
+      preventRef.current = true;
+    }
+    setLoad(false);
+  }, [page]);
 
   return (
     <>
@@ -27,23 +62,28 @@ const ShopPage = () => {
         </SecondHeader>
       </MainHeader>
       <Warpper>
-        <Container>
-          {posts.map((item) => (
-            <ItemContainer key={item.id}>
-              <SubItem>
-                <Item>
-                  <img src={item.thumbnail} alt="" />
-                </Item>
-                <Itemdesc>
-                  <ItemName>{item.product_brand}</ItemName>
-                  <ItemFullName>{item.product_name_eng}</ItemFullName>
-                  <ItemPrice>{item.product_priec}원</ItemPrice>
-                  <RightNow>즉시구매가</RightNow>
-                </Itemdesc>
-              </SubItem>
-            </ItemContainer>
-          ))}
-        </Container>
+        {posts && (
+          <Container>
+            {posts.map((item, index) => (
+              <ItemContainer key={item.id}>
+                <SubItem>
+                  <Item>
+                    <img src={item.thumbnail} alt="" />
+                  </Item>
+                  <Itemdesc>
+                    <ItemName>{item.product_brand}</ItemName>
+                    <ItemFullName>{item.product_name_eng}</ItemFullName>
+                    <ItemPrice>{item.product_price}원</ItemPrice>
+                    <RightNow>즉시구매가</RightNow>
+                  </Itemdesc>
+                </SubItem>
+              </ItemContainer>
+            ))}
+          </Container>
+        )}
+        {load ? <div>로딩중</div> : <> </>}
+
+        <div ref={obsRef}></div>
       </Warpper>
     </>
   );

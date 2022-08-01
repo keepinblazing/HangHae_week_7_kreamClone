@@ -40,7 +40,7 @@ const Header = () => {
           </Home>
         </MenuBox>
         <MenuBox>
-          <Shop onClick={() => navigate("/shop")}>SHOP</Shop>
+          <Shop onClick={() => navigate(`/products`)}>SHOP</Shop>
           <About>ABOUT</About>
         </MenuBox>
       </SecondHeader>

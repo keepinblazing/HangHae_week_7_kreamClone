@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// import { useDispatch } from "react-redux";
-// import { login } from "../redux/modules/user";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/modules/user";
 import { useNavigate } from "react-router-dom";
 import {
   LoginSigninBox,
@@ -23,7 +23,7 @@ const LoginPage = () => {
   const [passwordMsg, setPasswordMsg] = useState(false);
 
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   //아이디 유효성검사
   const IdVaildation = (e) => {
@@ -53,13 +53,13 @@ const LoginPage = () => {
       .post("/api/users/login", userInfo)
       .then((response) => {
         console.log(response);
-        localStorage.setItem("user", JSON.stringify(response.userInfo));
-        // dispatch(
-        //   login({
-        //     id: response.userInfo.id,
-        //     nickname: response.userInfo.nickname,
-        //   })
-        // );
+        localStorage.setItem("user", (response.data.token));
+        dispatch(
+          login({
+            id: response.data.id,
+            nickname: response.data.nickname,
+          })
+        );
         navigate("/");
       })
       .catch((error) => {

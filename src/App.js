@@ -16,13 +16,14 @@ function App() {
   const is_login = useSelector((state) => state.isLogin);
 
   useEffect(() => {
-    const accessToken = JSON.parse(localStorage.getItem("user"));
+    const accessToken = localStorage.getItem("user");
     if (is_login === false && accessToken !== null) {
       instance
-        .get("/api/users/login", {
-          headers: { Authorization : accessToken },
+        .get("/api/users/auth", {
+          headers: { Authorization : 'Bearer ' + accessToken },
         })
         .then((response) => {
+          console.log(response)
           dispatch(
             login({
               id: response.data.id,
@@ -40,7 +41,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/shop" element={<ShopPage/>}/>
+        <Route path="/products" element={<ShopPage/>}/>
       </Routes>
       <Footer />
     </>

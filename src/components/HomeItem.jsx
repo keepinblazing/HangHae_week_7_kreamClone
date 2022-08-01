@@ -3,7 +3,7 @@ import styled from "styled-components";
 import instance from "../axiosConfig";
 
 const HomeItem = () => {
-  const [posts, setPost] = useState([]);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const getPost = async () => {
@@ -11,7 +11,7 @@ const HomeItem = () => {
       return data;
     };
 
-    getPost().then((result) => setPost(result));
+    getPost().then((result) => setPosts(result));
   }, []);
 
   return (
@@ -21,8 +21,10 @@ const HomeItem = () => {
           <Title>Just Registered</Title>
           <SubTitle>최근 등록 상품</SubTitle>
         </TitleContainer>
-        {posts.map((item) => (
-          <ItemContainer key={item.id}>
+       
+          <ItemContainer>
+          {posts.map((item, index) => (
+            <div  key={item.id}>
             <SubItem>
               <Item>
                 <img src={item.thumbnail} alt="" />
@@ -30,12 +32,14 @@ const HomeItem = () => {
               <Itemdesc>
                 <ItemName>{item.product_brand}</ItemName>
                 <ItemFullName>{item.product_name_eng}</ItemFullName>
-                <ItemPrice>{item.product_priec}원</ItemPrice>
+                <ItemPrice>{item.product_price}원</ItemPrice>
                 <RightNow>즉시구매가</RightNow>
               </Itemdesc>
             </SubItem>
-          </ItemContainer>
+            </div>
+        
         ))}
+          </ItemContainer>
       </Container>
     </Warpper>
   );
