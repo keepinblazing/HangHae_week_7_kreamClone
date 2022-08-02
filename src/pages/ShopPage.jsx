@@ -56,13 +56,6 @@ const ShopPage = () => {
       <Helmet>
     <title>SHOP | KREAM</title>
       </Helmet>
-      {/* <MainHeader>
-        <SecondHeader>
-          <MenuBox>
-            <Home onClick={() => window.scrollTo(0, 0)}>SHOP</Home>
-          </MenuBox>
-        </SecondHeader>
-      </MainHeader> */}
       <Warpper>
         <Container>
           <ItemContainer>
@@ -89,44 +82,11 @@ const ShopPage = () => {
   );
 };
 
-const MainHeader = styled.div`
-  position: sticky;
-  top: 0;
-  left: 0;
-  background-color: white;
-  width: 100%;
-  z-index: 2;
-`;
 
-const SecondHeader = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-right: 2.8rem;
-  padding-left: 2.8rem;
-  height: 8rem;
-  background-color: transparent;
-  border: transparent;
-`;
-
-const Home = styled.div`
-  font-size: 1.7rem;
-  font-weight: bold;
-  background-color: transparent;
-  border: none;
-  letter-spacing: 0.05rem;
-  :hover {
-    cursor: pointer;
-  }
-`;
-
-const MenuBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+export default ShopPage;
 
 const Warpper = styled.section`
-  display: block;
+  display : block;
   max-width: 1280px;
   margin: 0 auto;
   margin-top: 5rem;
@@ -193,4 +153,3 @@ const Card = styled.div`
   }
 `;
 
-export default ShopPage;

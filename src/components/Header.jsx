@@ -19,41 +19,39 @@ const Header = () => {
   return (
     <>
       {window.location.pathname === "/products" ? (
-        <>
-          <ShopMainHeader>
-            <FirstHeader>
-              {is_login === true ? (
-                <Login onClick={LogOut}>로그아웃</Login>
-              ) : (
-                <Login
-                  onClick={() => {
-                    navigate("/login");
-                  }}
-                >
-                  로그인
-                </Login>
-              )}
-            </FirstHeader>
-            <SecondHeader>
+        <ShopMainHeader>
+          <FirstHeader>
+            {is_login === true ? (
+              <Login onClick={LogOut}>로그아웃</Login>
+            ) : (
+              <Login
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                로그인
+              </Login>
+            )}
+          </FirstHeader>
+          <SecondHeader>
+            <MenuBox>
+              <Home onClick={() => navigate("/")}>IsKREAM</Home>
+            </MenuBox>
+            <MenuBox>
+              <ShopTwo onClick={() => navigate(`/products?page=${page}`)}>
+                SHOP
+              </ShopTwo>
+              <About>ABOUT</About>
+            </MenuBox>
+          </SecondHeader>
+          <ShopHeaderContainer>
+            <ShopHeader>
               <MenuBox>
-                <Home onClick={() => navigate("/")}>IsKREAM</Home>
+                <Homee onClick={() => window.scrollTo(0, 0)}>SHOP</Homee>
               </MenuBox>
-              <MenuBox>
-                <ShopTwo onClick={() => navigate(`/products?page=${page}`)}>
-                  SHOP
-                </ShopTwo>
-                <About>ABOUT</About>
-              </MenuBox>
-            </SecondHeader>
-            <ShopHeaderContainer>
-              <ShopHeader>
-                <MenuBox>
-                  <Homee onClick={() => window.scrollTo(0, 0)}>SHOP</Homee>
-                </MenuBox>
-              </ShopHeader>
-            </ShopHeaderContainer>
-          </ShopMainHeader>
-        </>
+            </ShopHeader>
+          </ShopHeaderContainer>
+        </ShopMainHeader>
       ) : (
         <MainHeader>
           <FirstHeader>

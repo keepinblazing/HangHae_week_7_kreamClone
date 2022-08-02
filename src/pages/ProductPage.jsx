@@ -2,54 +2,32 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Btn } from '../components/elements/Detail';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import instance from '../axiosConfig';
 
 const ProductPage = () => {
     const [isActive, setIsActive] = useState(false)
     const [productImg, setPorductImg] = useState(0);
     const [productSize, setProductSize] = useState(0);
+    const [productList, setProductList] = useState(null)
     const navigate = useNavigate()
+    const param = useParams()    
 
-    const productList = 
-    {
-       id : '상품아이디',
-       thumbnail : [
-        "https://th-thumbnailer.cdn-si-edu.com/C4MIxDa_YxisZm2EtoTNHweBKZU=/fit-in/1600x0/filters:focal(3126x2084:3127x2085)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/ec/e6/ece69181-708a-496e-b2b7-eaf7078b99e0/gettyimages-1310156391.jpg",
-        "https://www.rd.com/wp-content/uploads/2022/01/GettyImages-912084898-e1641834261695.jpg",
-        "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iyRWcdIqVMks/v0/1200x-1.jpg",
-        "https://th-thumbnailer.cdn-si-edu.com/C4MIxDa_YxisZm2EtoTNHweBKZU=/fit-in/1600x0/filters:focal(3126x2084:3127x2085)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/ec/e6/ece69181-708a-496e-b2b7-eaf7078b99e0/gettyimages-1310156391.jpg",
-    ],
-       product_name_eng : 'Maison Mihara Yasuhiro Peterson OG Sole Canvas Low Sneakers Black',
-       product_name_kor : '메종 미하라 야스히로 피터슨 OG 솔 캔버스 로우 스니커즈 블랙',
-       prices:[
-        {
-            size: 230, 
-            price: 126000, 
-            price_diff: 4100
-         },
-        {
-           size: 240, 
-           price: 136000, 
-           price_diff: 4200
-        },
-        {
-            size: 250, 
-            price: 146000, 
-            price_diff: -1000
-         },
-         {
-            size: 260, 
-            price: 156000, 
-            price_diff: -1200
-         },
-         {
-            size: 270, 
-            price: 166000, 
-            price_diff: 1300
-         }
-       ],
-       product_brand : 'Mihara Yasuhiro'
+    const product_id = param.product_id
+
+    const getProductList = async () => {
+        await instance.get(`/api/products/${product_id}`)
+            .then(res => {
+                setProductList(res.data)
+            })
     }
+
+    useEffect(() => {
+        getProductList()
+    }, [productList])
+
+    if(productList === null) { return <></> }
+
 
     return (
         <Content>
@@ -60,7 +38,7 @@ const ProductPage = () => {
                             {productList.thumbnail.map((item) => {
                                 return (
                                     <div className="inner">
-                                        <img src={item} alt="product_img"/>
+                                        <img src={item.imgUrl} alt="product_img"/>
                                     </div>
                                 )
                             })}                            
@@ -150,11 +128,11 @@ const ProductPage = () => {
                         </div>
                     </div>
                     <div className="btn-wrap">
-                        <Btn width='49%' background='#ef6353' color='white' onClick={() => navigate('/product/buy/')}>
+                        <Btn width='49%' background='#ef6353' color='white' onClick={() => navigate(`/buy/${product_id}`)}>
                             <span className='type'>구매</span>
                             <span className='btn-price'>{productList.prices[productSize].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</span>
                         </Btn>
-                        <Btn width='49%' background='#41b979' color='white' style={{ marginLeft: '2%'}} onClick={() => navigate('/product/sell')}>
+                        <Btn width='49%' background='#41b979' color='white' style={{ marginLeft: '2%'}} onClick={() => navigate(`/sell/${product_id}`)}>
                             <span className='type'>판매</span>
                             <span className='btn-price'>{productList.prices[productSize].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</span>
                         </Btn>

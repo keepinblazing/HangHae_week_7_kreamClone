@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import styled from 'styled-components';
+=======
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import instance from '../axiosConfig';
+>>>>>>> b5d31dc0639db4a13621fae0530aa22c8aff0d65
 
 import { Btn } from '../components/elements/Detail';
 
 const ProductSellPage = () => {
     const [productSize, setProductSize] = useState(null)
     const [sellPrice, setSellPrice] = useState(0)
+<<<<<<< HEAD
 
     const productList = 
     {
@@ -48,13 +56,48 @@ const ProductSellPage = () => {
        product_brand : 'Mihara Yasuhiro'
     }
 
+=======
+    const [productList, setProductList] = useState(null)
+    const param = useParams()    
+
+    const product_id = param.product_id
+
+    const removeClass = (e) => {
+        document.querySelectorAll(e).forEach((item) => {
+            item.classList.remove('active')
+        })
+    }
+
+    const getProductList = async () => {
+        await instance.get(`/api/products/${product_id}`)
+            .then(res => {
+                setProductList(res.data)
+            })
+    }
+
+    const sellPost = async () => {
+        await instance.post(`/api/products/sell/${product_id}`, {
+            size: productList.prices[productSize].size,
+            price: parseInt(sellPrice)
+        }). then(res => console.log(res))
+    }
+
+    useEffect(() => {getProductList()}, [])
+
+    if(productList === null) { return <></> }
+
+>>>>>>> b5d31dc0639db4a13621fae0530aa22c8aff0d65
     return (
         <div>
             <ContainerSell>
                 <div className="content_wrap">
                     <div className="product_info">
                         <span className='product_thum'>
+<<<<<<< HEAD
                             <img src={productList.thumbnail[0]} alt="product" />
+=======
+                            <img src={productList.thumbnail[0].imgUrl} alt="product" />
+>>>>>>> b5d31dc0639db4a13621fae0530aa22c8aff0d65
                         </span>
                         <span className='product_detail'>
                             <p className='product_brand'>{productList.product_brand}</p>
@@ -68,7 +111,15 @@ const ProductSellPage = () => {
                             {productList.prices.map((item, idx) => {
                                 return (
                                     <li className='select_item'>
+<<<<<<< HEAD
                                         <SizeBtn value={idx} onClick={() => setProductSize(idx)}>
+=======
+                                        <SizeBtn value={idx} className="size_btn" onClick={(e) => {
+                                            removeClass('.size_btn')
+                                            e.currentTarget.classList.add('active')
+                                            setProductSize(idx)
+                                            }}>
+>>>>>>> b5d31dc0639db4a13621fae0530aa22c8aff0d65
                                             <span className='btn_body'>
                                                 <div>{item.size}</div>
                                                 <div>{item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
@@ -83,7 +134,11 @@ const ProductSellPage = () => {
                         {productSize === null ? <></> : 
                         <form onSubmit={(e) => {
                             e.preventDefault()
+<<<<<<< HEAD
                             console.log(sellPrice)
+=======
+                            sellPost()
+>>>>>>> b5d31dc0639db4a13621fae0530aa22c8aff0d65
                         }}>
                             <div className="sell_price_wrap">
                                 <label className='sell_price_label' htmlFor="price">판매희망가</label>
