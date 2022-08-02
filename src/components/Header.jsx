@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/modules/user";
@@ -33,13 +33,7 @@ const Header = () => {
       </FirstHeader>
       <SecondHeader>
         <MenuBox>
-          <Home
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            IsKREAM
-          </Home>
+          <Home onClick={()=> navigate("/")}>IsKREAM</Home>
         </MenuBox>
         <MenuBox>
           <Shop onClick={() => navigate(`/products?page=${page}`)}>SHOP</Shop>

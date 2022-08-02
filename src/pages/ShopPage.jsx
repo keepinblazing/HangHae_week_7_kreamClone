@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import instance from "../axiosConfig";
+import LoadingSpinner from "../components/elements/LoadingSpinner";
 
 const ShopPage = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true)
 
   const handleScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight;
@@ -18,9 +20,11 @@ const ShopPage = () => {
     }
   };
   const getPost = async () => {
+    setLoading(true)
     try {
       const { data } = await instance.get(`/api/products?page=${page}`);
       setPosts(posts.concat(data));
+      setLoading(false)
     } catch {
       console.error("fetching error");
     }
@@ -38,11 +42,11 @@ const ShopPage = () => {
     };
   }, [page]);
   //새로고침시 페이지 최상단으로 이동
-  useEffect(() => {
-    window.onbeforeunload = function pushRefresh() {
-      window.scrollTo(0, 0);
-    };
-  }, []);
+  // useEffect(() => {
+  //   window.onbeforeunload = function pushRefresh() {
+  //     window.scrollTo(0, 0);
+  //   };
+  // }, []);
 
   return (
     <>
@@ -54,7 +58,9 @@ const ShopPage = () => {
         </SecondHeader>
       </MainHeader>
       <Warpper>
+      {loading? <LoadingSpinner/> : null}
         <Container>
+       
           <ItemContainer>
             {posts.map((item, index) => (
               <Card onClick={() => navigate(`/product/:${posts.id}`)}>

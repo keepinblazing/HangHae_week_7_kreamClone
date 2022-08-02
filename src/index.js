@@ -7,16 +7,17 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import GlobalStyle from "./components/GlobalStyle";
+import ScrollToTop from "./components/elements/ScrollRestortaion";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-     <BrowserRouter>
-        <App />
-      <GlobalStyle/>
+    <BrowserRouter>
+      <ScrollToTop />
+      <App />
+      <GlobalStyle />
     </BrowserRouter>
   </Provider>
-
 );
 
 reportWebVitals();

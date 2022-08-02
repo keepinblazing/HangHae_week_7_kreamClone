@@ -2,24 +2,29 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import instance from "../axiosConfig";
+import LoadingSpinner from "../components/elements/LoadingSpinner";
 
 const HomeItem = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate();
 
     useEffect(() => {
     const getPost = async () => {
+      setLoading(true)
       const { data } = await instance.get(`/api/products/recent`);
       return data;
     };
     getPost().then((result) => setPosts(result));
     console.log(posts)
+    setLoading(false)
   }, []);
 
   return (
     <Warpper>
       <Container>
         <TitleContainer>
+        {loading? <LoadingSpinner/> : null}
           <Title>Just Registered</Title>
           <SubTitle>최근 등록 상품</SubTitle>
         </TitleContainer>

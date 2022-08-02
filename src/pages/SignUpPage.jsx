@@ -38,7 +38,7 @@ const SignUpPage = () => {
     else setPasswordMsg(true);
     setPassword(e.target.value);
   };
-
+  //닉네임 유효성 검사, 값의 유무만 판단
   const NickVaildation = (e) => {
     if(e.target.value !== "") setNickMsg(false)
     else setNickMsg(true)
