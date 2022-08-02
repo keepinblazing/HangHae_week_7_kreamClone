@@ -25,7 +25,7 @@ const HomeItem = () => {
         </TitleContainer>
         <ItemContainer>
             {posts.map((item, index) => (
-              <div onClick={()=> navigate(`/product/:${posts.id}`)}>
+              <Card onClick={()=> navigate(`/product/:${posts.id}`)}>
                 <SubItem key={item.id + index}>
                   <Item>
                     <img src={item.thumbnail} alt="" />
@@ -37,7 +37,7 @@ const HomeItem = () => {
                     <RightNow>즉시구매가</RightNow>
                   </Itemdesc>
                 </SubItem>
-                </div>
+                </Card>
             ))}
           </ItemContainer>
       </Container>
@@ -126,4 +126,14 @@ const ItemPrice = styled.div`
 const RightNow = styled.div`
   font-size: 0.75rem;
   color: gray;
+`;
+
+const Card = styled.div`
+
+
+:hover{
+
+cursor :pointer;
+
+}
 `;

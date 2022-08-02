@@ -4,12 +4,11 @@ import styled from "styled-components";
 import instance from "../axiosConfig";
 
 const ShopPage = () => {
-  
   const navigate = useNavigate();
-  
+
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
-  
+
   const handleScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
@@ -19,7 +18,7 @@ const ShopPage = () => {
       setPage((prev) => prev + 1);
     }
   };
-  const getRandomImageThenSet = async () => {
+  const getItem = async () => {
     try {
       const { data } = await instance.get(`/api/products?page=${page}`);
       setPosts(posts.concat(data));
@@ -30,7 +29,7 @@ const ShopPage = () => {
 
   useEffect(() => {
     console.log("page ? ", page);
-    getRandomImageThenSet();
+    getItem();
   }, [page]);
 
   useEffect(() => {
@@ -39,14 +38,6 @@ const ShopPage = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [page]);
-
-  // const getPost = async () => {
-
-  //   return data;
-  // };
-
-  // getPost().then((result) => setPosts(result));
-  // console.log(posts)
 
   return (
     <>
@@ -61,7 +52,7 @@ const ShopPage = () => {
         <Container>
           <ItemContainer>
             {posts.map((item, index) => (
-              <div onClick={()=> navigate(`/product/:${posts.id}`)}>
+              <Card onClick={() => navigate(`/product/:${posts.id}`)}>
                 <SubItem key={item.id + index}>
                   <Item>
                     <img src={item.thumbnail} alt="" />
@@ -73,7 +64,7 @@ const ShopPage = () => {
                     <RightNow>즉시구매가</RightNow>
                   </Itemdesc>
                 </SubItem>
-                </div>
+              </Card>
             ))}
           </ItemContainer>
         </Container>
@@ -114,6 +105,8 @@ const MenuBox = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+
 
 const Warpper = styled.section`
   max-width: 1280px;
@@ -176,5 +169,18 @@ const RightNow = styled.div`
   font-size: 0.75rem;
   color: gray;
 `;
+
+const Card = styled.div`
+
+
+:hover{
+
+cursor :pointer;
+
+}
+
+`;
+
+
 
 export default ShopPage;
