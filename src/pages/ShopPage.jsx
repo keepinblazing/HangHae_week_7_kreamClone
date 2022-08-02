@@ -13,12 +13,13 @@ const ShopPage = () => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
+    console.log("스크롤 이벤트");
 
     if (scrollTop + clientHeight >= scrollHeight) {
       setPage((prev) => prev + 1);
     }
   };
-  const getItem = async () => {
+  const getPost = async () => {
     try {
       const { data } = await instance.get(`/api/products?page=${page}`);
       setPosts(posts.concat(data));
@@ -29,22 +30,28 @@ const ShopPage = () => {
 
   useEffect(() => {
     console.log("page ? ", page);
-    getItem();
+    getPost();
   }, [page]);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [page]);
+
+  useEffect(() => {
+    window.onbeforeunload = function pushRefresh() {
+      window.scrollTo(0, 0);
+    };
+}, []);
 
   return (
     <>
       <MainHeader>
         <SecondHeader>
           <MenuBox>
-            <Home>SHOP</Home>
+            <Home onClick={() => window.scrollTo(0, 0)}>SHOP</Home>
           </MenuBox>
         </SecondHeader>
       </MainHeader>
@@ -98,6 +105,9 @@ const Home = styled.div`
   background-color: transparent;
   border: none;
   letter-spacing: 0.05rem;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const MenuBox = styled.div`
@@ -106,11 +116,9 @@ const MenuBox = styled.div`
   align-items: center;
 `;
 
-
-
 const Warpper = styled.section`
-  max-width: 1280px;
   display: block;
+  max-width: 1280px;
   margin: 0 auto;
   margin-top: 5rem;
   margin-bottom: 5rem;
@@ -124,11 +132,11 @@ const Container = styled.div`
 `;
 
 const ItemContainer = styled.div`
-  width: 100%;
   display: grid;
+  align-items: center;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  align-items: center;
+  width: 100%;
 `;
 
 const SubItem = styled.div`
@@ -137,12 +145,12 @@ const SubItem = styled.div`
 `;
 
 const Item = styled.div`
-  background-color: #f5f5f5;
+  display: flex;
+  margin: auto;
   width: 18rem;
+  background-color: #f5f5f5;
   height: 18rem;
   border-radius: 1rem;
-  margin: auto;
-  display: flex;
 `;
 
 const Itemdesc = styled.div`
@@ -171,16 +179,9 @@ const RightNow = styled.div`
 `;
 
 const Card = styled.div`
-
-
-:hover{
-
-cursor :pointer;
-
-}
-
+  :hover {
+    cursor: pointer;
+  }
 `;
-
-
 
 export default ShopPage;
