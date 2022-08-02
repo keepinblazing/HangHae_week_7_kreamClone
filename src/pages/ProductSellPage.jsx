@@ -1,62 +1,12 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import styled from 'styled-components';
-=======
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import instance from '../axiosConfig';
->>>>>>> b5d31dc0639db4a13621fae0530aa22c8aff0d65
-
 import { Btn } from '../components/elements/Detail';
 
 const ProductSellPage = () => {
     const [productSize, setProductSize] = useState(null)
     const [sellPrice, setSellPrice] = useState(0)
-<<<<<<< HEAD
-
-    const productList = 
-    {
-       id : '상품아이디',
-       thumbnail : [
-        "https://th-thumbnailer.cdn-si-edu.com/C4MIxDa_YxisZm2EtoTNHweBKZU=/fit-in/1600x0/filters:focal(3126x2084:3127x2085)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/ec/e6/ece69181-708a-496e-b2b7-eaf7078b99e0/gettyimages-1310156391.jpg",
-        "https://www.rd.com/wp-content/uploads/2022/01/GettyImages-912084898-e1641834261695.jpg",
-        "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iyRWcdIqVMks/v0/1200x-1.jpg",
-        "https://th-thumbnailer.cdn-si-edu.com/C4MIxDa_YxisZm2EtoTNHweBKZU=/fit-in/1600x0/filters:focal(3126x2084:3127x2085)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/ec/e6/ece69181-708a-496e-b2b7-eaf7078b99e0/gettyimages-1310156391.jpg",
-    ],
-       product_name_eng : 'Maison Mihara Yasuhiro Peterson OG Sole Canvas Low Sneakers Black',
-       product_name_kor : '메종 미하라 야스히로 피터슨 OG 솔 캔버스 로우 스니커즈 블랙',
-       prices:[
-        {
-            size: 230, 
-            price: 126000, 
-            price_diff: 4100
-         },
-        {
-           size: 240, 
-           price: 136000, 
-           price_diff: 4200
-        },
-        {
-            size: 250, 
-            price: 146000, 
-            price_diff: -1000
-         },
-         {
-            size: 260, 
-            price: 156000, 
-            price_diff: -1200
-         },
-         {
-            size: 270, 
-            price: 166000, 
-            price_diff: 1300
-         }
-       ],
-       product_brand : 'Mihara Yasuhiro'
-    }
-
-=======
     const [productList, setProductList] = useState(null)
     const param = useParams()    
 
@@ -86,18 +36,13 @@ const ProductSellPage = () => {
 
     if(productList === null) { return <></> }
 
->>>>>>> b5d31dc0639db4a13621fae0530aa22c8aff0d65
     return (
         <div>
             <ContainerSell>
                 <div className="content_wrap">
                     <div className="product_info">
                         <span className='product_thum'>
-<<<<<<< HEAD
-                            <img src={productList.thumbnail[0]} alt="product" />
-=======
                             <img src={productList.thumbnail[0].imgUrl} alt="product" />
->>>>>>> b5d31dc0639db4a13621fae0530aa22c8aff0d65
                         </span>
                         <span className='product_detail'>
                             <p className='product_brand'>{productList.product_brand}</p>
@@ -111,15 +56,11 @@ const ProductSellPage = () => {
                             {productList.prices.map((item, idx) => {
                                 return (
                                     <li className='select_item'>
-<<<<<<< HEAD
-                                        <SizeBtn value={idx} onClick={() => setProductSize(idx)}>
-=======
                                         <SizeBtn value={idx} className="size_btn" onClick={(e) => {
                                             removeClass('.size_btn')
                                             e.currentTarget.classList.add('active')
                                             setProductSize(idx)
                                             }}>
->>>>>>> b5d31dc0639db4a13621fae0530aa22c8aff0d65
                                             <span className='btn_body'>
                                                 <div>{item.size}</div>
                                                 <div>{item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
@@ -134,11 +75,7 @@ const ProductSellPage = () => {
                         {productSize === null ? <></> : 
                         <form onSubmit={(e) => {
                             e.preventDefault()
-<<<<<<< HEAD
-                            console.log(sellPrice)
-=======
                             sellPost()
->>>>>>> b5d31dc0639db4a13621fae0530aa22c8aff0d65
                         }}>
                             <div className="sell_price_wrap">
                                 <label className='sell_price_label' htmlFor="price">판매희망가</label>

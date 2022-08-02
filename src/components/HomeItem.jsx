@@ -30,7 +30,7 @@ const HomeItem = () => {
         </TitleContainer>
         <ItemContainer>
             {posts.map((item, index) => (
-              <Card onClick={()=> navigate(`/product/:${posts.id}`)}>
+              <Card onClick={()=> navigate(`/products/${item.id}`)}>
                 <SubItem key={item.id + index}>
                   <Item>
                     <img src={item.thumbnail} alt="" />
