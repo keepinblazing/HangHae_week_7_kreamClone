@@ -16,7 +16,10 @@ const ShopPage = () => {
     const clientHeight = document.documentElement.clientHeight;
     console.log("스크롤 이벤트");
     if (scrollTop + clientHeight >= scrollHeight) {
+   
       setPage((prev) => prev + 1);
+    }else{
+      setLoading(false)
     }
   };
   const getPost = async () => {
@@ -37,16 +40,17 @@ const ShopPage = () => {
   //이벤트 등록 passive 설정 추가, 쓰로틀링 구현 중
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
+    
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [page]);
   //새로고침시 페이지 최상단으로 이동
-  // useEffect(() => {
-  //   window.onbeforeunload = function pushRefresh() {
-  //     window.scrollTo(0, 0);
-  //   };
-  // }, []);
+  useEffect(() => {
+    window.onbeforeunload = function pushRefresh() {
+      window.scrollTo(0, 0);
+    };
+  }, []);
 
   return (
     <>
@@ -58,9 +62,8 @@ const ShopPage = () => {
         </SecondHeader>
       </MainHeader>
       <Warpper>
-      {loading? <LoadingSpinner/> : null}
+      {/* {loading? <LoadingSpinner/> : null} */}
         <Container>
-       
           <ItemContainer>
             {posts.map((item, index) => (
               <Card onClick={() => navigate(`/product/:${posts.id}`)}>
@@ -78,6 +81,7 @@ const ShopPage = () => {
               </Card>
             ))}
           </ItemContainer>
+          {loading? <LoadingSpinner/> : null}
         </Container>
       </Warpper>
     </>

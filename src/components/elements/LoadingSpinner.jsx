@@ -20,6 +20,7 @@ justify-content : center;
 align-items : center;
 vertical-align : top;
 
+
 `;
 const ImgContainer = styled.div`
 
@@ -28,6 +29,7 @@ width : 100%;
 background-color : white;
 justify-content : center;
 align-items : center;
+vertical-align : bottom;
 
 
 `;
