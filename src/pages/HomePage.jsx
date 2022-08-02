@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import HomeImageSlider from "../components/HomeImageSlide";
 import HomeItem from "../components/HomeItem";
+import { Helmet } from "react-helmet";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -15,6 +16,9 @@ const HomePage = () => {
 
   return (
     <>
+    <Helmet>
+    <title>KREAM | 한정판 거래의 FLEX</title>
+      </Helmet>
       <HomeImageSlider />
       <HomeItem />
     </>

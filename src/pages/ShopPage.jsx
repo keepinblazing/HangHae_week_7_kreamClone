@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import instance from "../axiosConfig";
 import LoadingSpinner from "../components/elements/LoadingSpinner";
+import { Helmet } from "react-helmet";
 
 const ShopPage = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const handleScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight;
@@ -16,18 +17,17 @@ const ShopPage = () => {
     const clientHeight = document.documentElement.clientHeight;
     console.log("스크롤 이벤트");
     if (scrollTop + clientHeight >= scrollHeight) {
-   
       setPage((prev) => prev + 1);
-    }else{
-      setLoading(false)
+    } else {
+      setLoading(false);
     }
   };
   const getPost = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const { data } = await instance.get(`/api/products?page=${page}`);
       setPosts(posts.concat(data));
-      setLoading(false)
+      setLoading(false);
     } catch {
       console.error("fetching error");
     }
@@ -40,7 +40,6 @@ const ShopPage = () => {
   //이벤트 등록 passive 설정 추가, 쓰로틀링 구현 중
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
-    
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -54,15 +53,17 @@ const ShopPage = () => {
 
   return (
     <>
-      <MainHeader>
+      <Helmet>
+    <title>SHOP | KREAM</title>
+      </Helmet>
+      {/* <MainHeader>
         <SecondHeader>
           <MenuBox>
             <Home onClick={() => window.scrollTo(0, 0)}>SHOP</Home>
           </MenuBox>
         </SecondHeader>
-      </MainHeader>
+      </MainHeader> */}
       <Warpper>
-      {/* {loading? <LoadingSpinner/> : null} */}
         <Container>
           <ItemContainer>
             {posts.map((item, index) => (
@@ -81,7 +82,7 @@ const ShopPage = () => {
               </Card>
             ))}
           </ItemContainer>
-          {loading? <LoadingSpinner/> : null}
+          {loading ? <LoadingSpinner /> : null}
         </Container>
       </Warpper>
     </>
