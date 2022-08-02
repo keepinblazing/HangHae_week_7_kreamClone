@@ -6,12 +6,12 @@ import instance from "../axiosConfig";
 const HomeItem = () => {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
+
     useEffect(() => {
     const getPost = async () => {
       const { data } = await instance.get(`/api/products/recent`);
       return data;
     };
-
     getPost().then((result) => setPosts(result));
     console.log(posts)
   }, []);

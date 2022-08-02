@@ -22,7 +22,7 @@ export default class HomeImageSlide extends Component {
           },
         },
         {
-          breakpoint: 1200,
+          breakpoint: 1280,
           settings: {
             slidesToShow: 1,
           },

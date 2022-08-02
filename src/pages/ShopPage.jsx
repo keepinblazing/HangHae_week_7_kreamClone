@@ -5,7 +5,6 @@ import instance from "../axiosConfig";
 
 const ShopPage = () => {
   const navigate = useNavigate();
-
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
 
@@ -14,7 +13,6 @@ const ShopPage = () => {
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
     console.log("스크롤 이벤트");
-
     if (scrollTop + clientHeight >= scrollHeight) {
       setPage((prev) => prev + 1);
     }
@@ -27,24 +25,24 @@ const ShopPage = () => {
       console.error("fetching error");
     }
   };
-
+  //페이지 표시
   useEffect(() => {
     console.log("page ? ", page);
     getPost();
   }, [page]);
-
+  //이벤트 등록 passive 설정 추가, 쓰로틀링 구현 중
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [page]);
-
+  //새로고침시 페이지 최상단으로 이동
   useEffect(() => {
     window.onbeforeunload = function pushRefresh() {
       window.scrollTo(0, 0);
     };
-}, []);
+  }, []);
 
   return (
     <>
