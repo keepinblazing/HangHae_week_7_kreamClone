@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import instance from '../axiosConfig';
+import { Helmet } from "react-helmet";
+
 import { Btn } from '../components/elements/Detail';
 
 const ProductSellPage = () => {
@@ -26,10 +28,16 @@ const ProductSellPage = () => {
     }
 
     const sellPost = async () => {
+        const accessToken = localStorage.getItem("user");
+
         await instance.post(`/api/products/sell/${product_id}`, {
             size: productList.prices[productSize].size,
             price: parseInt(sellPrice)
-        }). then(res => console.log(res))
+        },{
+            headers: { Authorization: "Bearer " + accessToken }
+        })
+        .then(res => alert(res.data))
+        .catch(res => alert(res.response.data))
     }
 
     useEffect(() => {getProductList()}, [])
@@ -37,7 +45,10 @@ const ProductSellPage = () => {
     if(productList === null) { return <></> }
 
     return (
-        <div>
+        <>
+            <Helmet>
+                <title>SHOP | KREAM</title>
+            </Helmet>
             <ContainerSell>
                 <div className="content_wrap">
                     <div className="product_info">
@@ -89,7 +100,7 @@ const ProductSellPage = () => {
                     </div>
                 </div>
             </ContainerSell>
-        </div>
+        </>
     );
 };
 
