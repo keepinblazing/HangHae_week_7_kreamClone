@@ -1,59 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import instance from '../axiosConfig';
+import { Helmet } from "react-helmet";
+import LoadingSpinner from "../components/elements/LoadingSpinner";
 
 import { Btn } from '../components/elements/Detail';
 
 const ProductBuyPage = () => {
     const [productSize, setProductSize] = useState(null)
+    const [productList, setProductList] = useState(null)
+    const param = useParams()
+    const navigate = useNavigate();
+    const product_id = param.product_id
 
-    const productList = 
-    {
-       id : '상품아이디',
-       thumbnail : [
-        "https://th-thumbnailer.cdn-si-edu.com/C4MIxDa_YxisZm2EtoTNHweBKZU=/fit-in/1600x0/filters:focal(3126x2084:3127x2085)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/ec/e6/ece69181-708a-496e-b2b7-eaf7078b99e0/gettyimages-1310156391.jpg",
-        "https://www.rd.com/wp-content/uploads/2022/01/GettyImages-912084898-e1641834261695.jpg",
-        "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iyRWcdIqVMks/v0/1200x-1.jpg",
-        "https://th-thumbnailer.cdn-si-edu.com/C4MIxDa_YxisZm2EtoTNHweBKZU=/fit-in/1600x0/filters:focal(3126x2084:3127x2085)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/ec/e6/ece69181-708a-496e-b2b7-eaf7078b99e0/gettyimages-1310156391.jpg",
-    ],
-       product_name_eng : 'Maison Mihara Yasuhiro Peterson OG Sole Canvas Low Sneakers Black',
-       product_name_kor : '메종 미하라 야스히로 피터슨 OG 솔 캔버스 로우 스니커즈 블랙',
-       prices:[
-        {
-            size: 230, 
-            price: 126000, 
-            price_diff: 4100
-         },
-        {
-           size: 240, 
-           price: 136000, 
-           price_diff: 4200
-        },
-        {
-            size: 250, 
-            price: 146000, 
-            price_diff: -1000
-         },
-         {
-            size: 260, 
-            price: 156000, 
-            price_diff: -1200
-         },
-         {
-            size: 270, 
-            price: 166000, 
-            price_diff: 1300
-         }
-       ],
-       product_brand : 'Mihara Yasuhiro'
+    const removeClass = (e) => {
+        document.querySelectorAll(e).forEach((item) => {
+            item.classList.remove('active')
+        })
     }
 
+    const getProductList = async () => {
+        await instance.get(`/api/products/${product_id}`)
+            .then(res => {
+                setProductList(res.data)
+            })
+    }
+
+    const buyPost = async () => {
+        const accessToken = localStorage.getItem("user");
+
+        await instance.post(`/api/products/buy/${product_id}`, {
+            size: productList.prices[productSize].size
+        }, {
+            headers: { Authorization: "Bearer " + accessToken }
+        })
+            .then(res => alert(res.data), navigate("/"))
+            
+            .catch(res => alert('상품 구매는 로그인 후 이용해 주세요.'))
+            navigate("/login")
+    }
+
+    useEffect(() => { getProductList() }, [])
+
+    if (productList === null) {return <LoadingSpinner />}
+
     return (
-        <div>
+        <>
+            <Helmet>
+                <title>KREAM | 한정판 거래의 FLEX</title>
+            </Helmet>
             <ContainerBuy>
                 <div className="content_wrap">
                     <div className="product_info">
                         <span className='product_thum'>
-                            <img src={productList.thumbnail[0]} alt="product" />
+                            <img src={productList.thumbnail[0].imgUrl} alt="product" />
                         </span>
                         <span className='product_detail'>
                             <p className='product_brand'>{productList.product_brand}</p>
@@ -61,13 +62,18 @@ const ProductBuyPage = () => {
                             <p className='product_name_kr'>{productList.product_name_kor}</p>
                         </span>
                     </div>
-                    
+
                     <div className="select_wrap">
                         <ul className='select_list'>
                             {productList.prices.map((item, idx) => {
                                 return (
                                     <li className='select_item'>
-                                        <SizeBtn value={idx} onClick={() => setProductSize(idx)}>
+
+                                        <SizeBtn value={idx} className="size_btn" onClick={(e) => {
+                                            removeClass('.size_btn')
+                                            e.currentTarget.classList.add('active')
+                                            setProductSize(idx)
+                                        }}>
                                             <span className='btn_body'>
                                                 <div>{item.size}</div>
                                                 <div>{item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
@@ -78,18 +84,18 @@ const ProductBuyPage = () => {
                             })}
                         </ul>
                     </div>
-                    <div className="btn_wrap">                            
-                        {productSize === null ? <></> : 
-                        <Btn width="100%" background='#ef6353' color='white' className='buy_btn'onClick={() => {
-                            console.log(productList.prices[productSize].price)
-                        }}>
-                            구매하기 {productList.prices[productSize].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원
-                        </Btn>
+                    <div className="btn_wrap">
+                        {productSize === null ? <></> :
+                            <Btn width="100%" background='#ef6353' color='white' className='buy_btn' onClick={() => {
+                                buyPost();
+                            }}>
+                                구매하기 {productList.prices[productSize].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원
+                            </Btn>
                         }
                     </div>
                 </div>
             </ContainerBuy>
-        </div>
+        </>
     );
 };
 

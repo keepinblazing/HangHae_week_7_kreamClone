@@ -53,20 +53,27 @@ const LoginPage = () => {
       .post("/api/users/login", userInfo)
       .then((response) => {
         console.log(response);
-        localStorage.setItem("user", (response.data.token));
+        localStorage.setItem("user", response.data.token);
         dispatch(
           login({
             id: response.data.id,
             nickname: response.data.nickname,
           })
         );
+        alert(response.data.msg)
         navigate("/");
+        window.location.reload();
       })
       .catch((error) => {
-        console.log(error);
-        alert(error);
+        console.log(error)
+        if (error.response.data.msg === 'Bad credentials'){
+          alert('비밀번호가 일치하지 않습니다.')
+        }else{
+        alert(error.response.data.msg);
+        }
       });
   };
+
   return (
     <LoginSigninBox>
       <Home>IsKREAM</Home>
@@ -119,7 +126,6 @@ const LoginPage = () => {
             />
           </>
         )}
-
         {passwordMsg && (
           <Msg>영문, 숫자, 특수문자를 조합하여 입력해주세요.(8~16자)</Msg>
         )}

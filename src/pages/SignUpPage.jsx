@@ -38,7 +38,7 @@ const SignUpPage = () => {
     else setPasswordMsg(true);
     setPassword(e.target.value);
   };
-
+  //닉네임 유효성 검사, 값의 유무만 판단
   const NickVaildation = (e) => {
     if(e.target.value !== "") setNickMsg(false)
     else setNickMsg(true)
@@ -53,14 +53,14 @@ const SignUpPage = () => {
 
     return instance
       .post("/api/users/signup", userInfo)
-      .then((response) => {
+       .then((response) => {
         console.log(response);
         alert("회원가입이 완료되었습니다!");
         navigate("/login");
       })
       .catch((error) => {
         console.log(error);
-        alert(error);
+        alert(error.response.data);
       });
   };
   return (

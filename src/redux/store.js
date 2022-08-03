@@ -3,4 +3,5 @@ import user from "./modules/user";
 
 const store = configureStore({ reducer : user });
 
+
 export default store;

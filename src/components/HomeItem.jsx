@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import instance from "../axiosConfig";
+import LoadingSpinner from "../components/elements/LoadingSpinner";
 
 const HomeItem = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true)
+  const navigate = useNavigate();
 
-  useEffect(() => {
+    useEffect(() => {
+      setLoading(true)
     const getPost = async () => {
       const { data } = await instance.get(`/api/products/recent`);
+      setLoading(false)
       return data;
     };
-
     getPost().then((result) => setPosts(result));
+    console.log(posts)
+  
   }, []);
 
   return (
@@ -20,25 +27,24 @@ const HomeItem = () => {
         <TitleContainer>
           <Title>Just Registered</Title>
           <SubTitle>최근 등록 상품</SubTitle>
+          {loading? <LoadingSpinner/> : null}
         </TitleContainer>
-       
-          <ItemContainer>
-          {posts.map((item, index) => (
-            <div  key={item.id}>
-            <SubItem>
-              <Item>
-                <img src={item.thumbnail} alt="" />
-              </Item>
-              <Itemdesc>
-                <ItemName>{item.product_brand}</ItemName>
-                <ItemFullName>{item.product_name_eng}</ItemFullName>
-                <ItemPrice>{item.product_price}원</ItemPrice>
-                <RightNow>즉시구매가</RightNow>
-              </Itemdesc>
-            </SubItem>
-            </div>
-        
-        ))}
+        <ItemContainer>
+            {posts.map((item, index) => (
+              <Card onClick={()=> navigate(`/products/${item.id}`)}>
+                <SubItem >
+                  <Item>
+                    <img src={item.thumbnail} alt="" />
+                  </Item>
+                  <Itemdesc>
+                    <ItemName>{item.product_brand}</ItemName>
+                    <ItemFullName>{item.product_name_eng}</ItemFullName>
+                    <ItemPrice>{item.product_price}원</ItemPrice>
+                    <RightNow>즉시구매가</RightNow>
+                  </Itemdesc>
+                </SubItem>
+                </Card>
+            ))}
           </ItemContainer>
       </Container>
     </Warpper>
@@ -126,4 +132,14 @@ const ItemPrice = styled.div`
 const RightNow = styled.div`
   font-size: 0.75rem;
   color: gray;
+`;
+
+const Card = styled.div`
+
+
+:hover{
+
+cursor :pointer;
+
+}
 `;
