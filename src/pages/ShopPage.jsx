@@ -60,8 +60,8 @@ const ShopPage = () => {
         <Container>
           <ItemContainer>
             {posts.map((item, index) => (
-              <Card onClick={() => navigate(`/products/${item.id}`)}>
-                <SubItem key={item.id + index}>
+              <Card onClick={() => navigate(`/products/${item.id}`)} key={item.id + index}>
+                <SubItem >
                   <Item>
                     <img src={item.thumbnail} alt="" />
                   </Item>
