@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import instance from '../axiosConfig';
 import { Helmet } from "react-helmet";
+import LoadingSpinner from "../components/elements/LoadingSpinner";
 
 import Graph from '../components/Chart';
 import { GrPrevious, GrNext } from 'react-icons/gr'
@@ -59,13 +60,12 @@ const ProductPage = () => {
         getChartData()
     }, [productSize])
 
-
-    if (productList === null) { return <></> }
+    if (productList === null) {return <LoadingSpinner />}
 
     return (
         <>
             <Helmet>
-                <title>SHOP | KREAM</title>
+                <title>{productList.product_name_kor} | {productList.product_brand} | KREAM</title>
             </Helmet>
             <Content>
                 <div className="col-wrap">
@@ -179,9 +179,7 @@ const ProductPage = () => {
                             <Btn className={isActive ? 'active' : ''}
                                 background='white'
                                 width='100%'
-                                style={{ marginTop: '12px', border: '1px solid #bdbdbd', textAlign: 'center', fontWeight: 400 }}
-                                // onClick={() => addCart()}
-                                >
+                                style={{ marginTop: '12px', border: '1px solid #bdbdbd', textAlign: 'center', fontWeight: 400 }}>
                                 관심상품
                             </Btn>
                         </div>

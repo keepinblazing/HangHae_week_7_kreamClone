@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import instance from '../axiosConfig';
 import { Helmet } from "react-helmet";
+import LoadingSpinner from "../components/elements/LoadingSpinner";
 
 import { Btn } from '../components/elements/Detail';
 
@@ -42,12 +43,12 @@ const ProductSellPage = () => {
 
     useEffect(() => {getProductList()}, [])
 
-    if(productList === null) { return <></> }
+    if (productList === null) {return <LoadingSpinner />}
 
     return (
         <>
             <Helmet>
-                <title>SHOP | KREAM</title>
+                <title>KREAM | 한정판 거래의 FLEX</title>
             </Helmet>
             <ContainerSell>
                 <div className="content_wrap">
