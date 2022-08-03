@@ -16,7 +16,7 @@
 - ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
 - ![Chart JS](https://img.shields.io/badge/Chart.js-FF6384.svg?style=for-the-badge&logo=Chart.js&logoColor=white)
 - ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
-- ![AWS](https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=aws&logoColor=white)
+- ![AWS](https://img.shields.io/badge/aws_S3-232F3E?style=for-the-badge&logo=aws&logoColor=white)
 
 ### TruobleShooting
 

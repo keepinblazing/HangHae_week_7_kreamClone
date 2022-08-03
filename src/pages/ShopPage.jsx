@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import instance from "../axiosConfig";
@@ -10,6 +10,7 @@ const ShopPage = () => {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const target = useRef();
 
   const handleScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight;
@@ -32,18 +33,45 @@ const ShopPage = () => {
       console.error("fetching error");
     }
   };
+
+ 
+  // const getPost = async () =>{
+
+  //   await instance.get(`/api/products?page=${page}`)
+  //   .then((response) => setPosts([...posts, ...response.data]))
+  //   .then(()=>setLoading(true))
+  // }
+
+  // useEffect(() => getPost(), [page])
+
+  // const LoadMore = () => setPage(prev => prev+1)
+
+
+  // useEffect(() => {
+  //   if (loading) {
+  //     const observer = new IntersectionObserver((entries) => {
+  //       if (entries[0].isIntersecting) {
+  //         LoadMore();
+  //       }
+  //     });
+  //     observer.observe(target.current);
+  //   }
+  // }, []);
+
   //페이지 표시
   useEffect(() => {
     console.log("page ? ", page);
     getPost();
   }, [page]);
-  //이벤트 등록 passive 설정 추가, 쓰로틀링 구현 중
+
+  // //이벤트 등록 passive 설정 추가, 쓰로틀링 구현 중
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [page]);
+  
   //새로고침시 페이지 최상단으로 이동
   useEffect(() => {
     window.onbeforeunload = function pushRefresh() {

@@ -62,6 +62,7 @@ const LoginPage = () => {
         );
         alert(response.data.msg)
         navigate("/");
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error)

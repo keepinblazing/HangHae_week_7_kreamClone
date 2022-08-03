@@ -33,9 +33,8 @@ function App() {
             })
           );
         });
-    }
-  });
-
+      }
+   });
   return (
     <>
       <Header />
