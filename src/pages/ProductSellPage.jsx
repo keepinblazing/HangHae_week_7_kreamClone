@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import instance from '../axiosConfig';
 import { Helmet } from "react-helmet";
@@ -12,7 +12,7 @@ const ProductSellPage = () => {
     const [sellPrice, setSellPrice] = useState(0)
     const [productList, setProductList] = useState(null)
     const param = useParams()    
-
+    const navigate = useNavigate()
     const product_id = param.product_id
 
     const removeClass = (e) => {
@@ -37,8 +37,9 @@ const ProductSellPage = () => {
         },{
             headers: { Authorization: "Bearer " + accessToken }
         })
-        .then(res => alert(res.data))
-        .catch(res => alert(res.response.data))
+        .then(res => alert(res.data), navigate("/"))
+            
+        .catch(res => alert('로그인 후 이용해 주세요.'),  navigate("/login"))
     }
 
     useEffect(() => {getProductList()}, [])

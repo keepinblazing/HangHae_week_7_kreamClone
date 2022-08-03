@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import instance from '../axiosConfig';
 import { Helmet } from "react-helmet";
@@ -11,7 +11,7 @@ const ProductBuyPage = () => {
     const [productSize, setProductSize] = useState(null)
     const [productList, setProductList] = useState(null)
     const param = useParams()
-
+    const navigate = useNavigate();
     const product_id = param.product_id
 
     const removeClass = (e) => {
@@ -35,8 +35,10 @@ const ProductBuyPage = () => {
         }, {
             headers: { Authorization: "Bearer " + accessToken }
         })
-            .then(res => alert(res.data))
-            .catch(res => alert(res.response.data))
+            .then(res => alert(res.data), navigate("/"))
+            
+            .catch(res => alert('상품 구매는 로그인 후 이용해 주세요.'))
+            navigate("/login")
     }
 
     useEffect(() => { getProductList() }, [])
@@ -85,7 +87,7 @@ const ProductBuyPage = () => {
                     <div className="btn_wrap">
                         {productSize === null ? <></> :
                             <Btn width="100%" background='#ef6353' color='white' className='buy_btn' onClick={() => {
-                                buyPost()
+                                buyPost();
                             }}>
                                 구매하기 {productList.prices[productSize].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원
                             </Btn>
