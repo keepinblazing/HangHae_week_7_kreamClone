@@ -28,6 +28,7 @@ const ProductPage = () => {
 
     if(productList === null) { return <></> }
 
+
     return (
         <Content>
             <div className="col-wrap">

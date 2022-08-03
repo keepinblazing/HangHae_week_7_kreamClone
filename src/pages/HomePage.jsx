@@ -1,39 +1,28 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useEffect } from "react";
 import HomeImageSlider from "../components/HomeImageSlide";
+import HomeItem from "../components/HomeItem";
+import { Helmet } from "react-helmet";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const HomePage = () => {
+  //새로고침시 페이지 최상단으로 이동
+  useEffect(() => {
+    window.onbeforeunload = function pushRefresh() {
+      window.scrollTo(0, 0);
+    };
+  }, []);
 
-
-    return (
-        <>
-        <Margin2/>
-        <HomeImageSlider/>
-        <Margin>
-        </Margin>
-        </>
-
-    )
-
-
-}
-
-
+  return (
+    <>
+    <Helmet>
+    <title>KREAM | 한정판 거래의 FLEX</title>
+      </Helmet>
+      <HomeImageSlider />
+      <HomeItem />
+    </>
+  );
+};
 
 export default HomePage;
-
-const Margin = styled.div`
-
-margin-bottom : 500px;
-
-
-`;
-const Margin2 = styled.div`
-
-margin-left : 500px;
-
-
-`;
-

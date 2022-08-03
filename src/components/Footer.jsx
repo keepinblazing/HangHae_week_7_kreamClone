@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import styled from "styled-components";
 
@@ -24,69 +23,74 @@ const Footer = () => {
   ];
 
   return (
-      <Wrapper>
-        <BannerContainer>
-          <Banner>
-            <BannerTitle>SERVICE GUIDE</BannerTitle>
-            <BannerContent>IsKREAM은 처음이지?<br/>
-            서비스 소개를 확인해 보세요.</BannerContent>
-            <BannerBtn>서비스 안내</BannerBtn>
-          </Banner>
-          <Banner2>
-            <BannerTitle>DOWNLOAD THE APP</BannerTitle>
-            <BannerContent>IsKREAM 앱을 설치하여<br/>
-            한정판 스니커즈를 FLEX 하세요!</BannerContent>
-            <BannerBtn>앱 설치하기</BannerBtn>
-          </Banner2>
-        </BannerContainer>
+    <Wrapper>
+      <BannerContainer>
+        <Banner>
+          <BannerTitle>SERVICE GUIDE</BannerTitle>
+          <BannerContent>
+            IsKREAM은 처음이지?
+            <br />
+            서비스 소개를 확인해 보세요.
+          </BannerContent>
+          <BannerBtn>서비스 안내</BannerBtn>
+        </Banner>
+        <Banner2>
+          <BannerTitle>DOWNLOAD THE APP</BannerTitle>
+          <BannerContent>
+            IsKREAM 앱을 설치하여
+            <br />
+            한정판 스니커즈를 FLEX 하세요!
+          </BannerContent>
+          <BannerBtn>앱 설치하기</BannerBtn>
+        </Banner2>
+      </BannerContainer>
 
-        <Top>
-          <Left>
-            <Title>이용안내</Title>
+      <Top>
+        <Left>
+          <Title>이용안내</Title>
 
-            {USERINFO.map((info, index) => (
-              <List key={index}>{info}</List>
-            ))}
-          </Left>
-          <Center>
-            <Title>고객지원</Title>
+          {USERINFO.map((info, index) => (
+            <List key={index}>{info}</List>
+          ))}
+        </Left>
+        <Center>
+          <Title>고객지원</Title>
 
-            {USERSUPPORT.map((support, index) => {
-              return <List key={index}>{support}</List>;
-            })}
-          </Center>
-          <Right>
-            <Title>고객센터 1234-5678</Title>
+          {USERSUPPORT.map((support, index) => {
+            return <List key={index}>{support}</List>;
+          })}
+        </Center>
+        <Right>
+          <Title>고객센터 1234-5678</Title>
 
-            {CUSTMOERSURVICE.map((customer, index) => (
-              <List key={index}>{customer}</List>
-            ))}
+          {CUSTMOERSURVICE.map((customer, index) => (
+            <List key={index}>{customer}</List>
+          ))}
 
-            <Button>자주 묻는 질문</Button>
-          </Right>
-        </Top>
+          <Button>자주 묻는 질문</Button>
+        </Right>
+      </Top>
 
-        <Bottom>
-          <TopInBottom>
-            <Group>
-              <A>회사소개</A>
-              <A>인재채용</A>
-              <A>제휴제안</A>
-              <A>이용약관</A>
-              <A style={{ fontWeight: "bold" }}>개인정보처리방침</A>
-            </Group>
-          </TopInBottom>
-          <Info>IsKREAM 주식회사</Info>
+      <Bottom>
+        <TopInBottom>
+          <Group>
+            <A>회사소개</A>
+            <A>인재채용</A>
+            <A>제휴제안</A>
+            <A>이용약관</A>
+            <A style={{ fontWeight: "bold" }}>개인정보처리방침</A>
+          </Group>
+        </TopInBottom>
+        <Info>IsKREAM 주식회사</Info>
 
-          <BottomInBottom>
-            <SmallInfo>
-              IsKream은 판매를 하지 않습니다. 신발을 구매하고 싶으시면 KREAM으로
-              가주세요.
-            </SmallInfo>
-          </BottomInBottom>
-        </Bottom>
-      </Wrapper>
-
+        <BottomInBottom>
+          <SmallInfo>
+            IsKream은 판매를 하지 않습니다. 신발을 구매하고 싶으시면 KREAM으로
+            가주세요.
+          </SmallInfo>
+        </BottomInBottom>
+      </Bottom>
+    </Wrapper>
   );
 };
 const Wrapper = styled.footer`
@@ -97,6 +101,7 @@ const Wrapper = styled.footer`
   flex-direction: column;
   background-color: white;
 `;
+
 const BannerContainer = styled.div`
   margin-bottom: 0.7rem;
   position: relative;
@@ -133,23 +138,20 @@ const BannerTitle = styled.div`
 `;
 
 const BannerContent = styled.div`
-
-  font-size : 1rem;
+  font-size: 1rem;
   padding: 1rem 0rem 1rem 1rem;
-  color : white;
-
+  color: white;
 `;
 
 const BannerBtn = styled.button`
-
-  margin-left : 1rem;
-  border : 1px solid hsla(0,0%,100%,.8);
-  letter-spacing : 0.1rem;
-  border-radius : 0.2rem;
-  background-color : transparent;
-  padding : 0.3rem;
-  color : white;
-  font-size : 0.2rem;
+  margin-left: 1rem;
+  border: 1px solid hsla(0, 0%, 100%, 0.8);
+  letter-spacing: 0.1rem;
+  border-radius: 0.2rem;
+  background-color: transparent;
+  padding: 0.3rem;
+  color: white;
+  font-size: 0.2rem;
 `;
 
 const Top = styled.section`
@@ -220,8 +222,10 @@ const Group = styled.div`
   margin-bottom: 1rem;
 `;
 
-const SmallInfo = styled(Info)`
+const SmallInfo = styled.p`
   font-size: 0.8rem;
+  margin-bottom: 0.1rem;
+  color: #bcbcbc;
 `;
 
 export default Footer;

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import instance from '../axiosConfig';
 
+
 import { Btn } from '../components/elements/Detail';
 
 const ProductBuyPage = () => {
@@ -55,6 +56,7 @@ const ProductBuyPage = () => {
                             {productList.prices.map((item, idx) => {
                                 return (
                                     <li className='select_item'>
+
                                         <SizeBtn value={idx} className="size_btn" onClick={(e) => {
                                             removeClass('.size_btn')
                                             e.currentTarget.classList.add('active')

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import instance from '../axiosConfig';
-
 import { Btn } from '../components/elements/Detail';
 
 const ProductSellPage = () => {
