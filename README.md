@@ -8,11 +8,11 @@
 ### Stack
 
 - [x] ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-- [x] 	![Redux](https://img.shields.io/badge/redux-toolkit-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
-- [x] react-Helmet
+- [x] ![Redux](https://img.shields.io/badge/redux-toolkit%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+- [x] ![React](https://img.shields.io/badge/react-helmet%9a83d7.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 - [x] ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 - [x] axios
-- [x] reack-slick
+- [x] ![React](https://img.shields.io/badge/react-slick%9fc5e8.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 - [x] ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
 - [x] ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
 
