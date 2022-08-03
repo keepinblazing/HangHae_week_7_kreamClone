@@ -9,19 +9,20 @@ const ShopPage = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
+  const [lastIntersectingPost, setLastIntersectingPost] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const handleScroll = () => {
-    const scrollHeight = document.documentElement.scrollHeight;
-    const scrollTop = document.documentElement.scrollTop;
-    const clientHeight = document.documentElement.clientHeight;
-    console.log("스크롤 이벤트");
-    if (scrollTop + clientHeight >= scrollHeight) {
-      setPage((prev) => prev + 1);
-    } else {
-      setLoading(false);
-    }
-  };
+  // const handleScroll = () => {
+  //   const scrollHeight = document.documentElement.scrollHeight;
+  //   const scrollTop = document.documentElement.scrollTop;
+  //   const clientHeight = document.documentElement.clientHeight;
+  //   console.log("스크롤 이벤트");
+  //   if (scrollTop + clientHeight >= scrollHeight) {
+  //     setPage((prev) => prev + 1);
+  //   } else {
+  //     setLoading(false);
+  //   }
+  // };
   const getPost = async () => {
     setLoading(true);
     try {
@@ -32,18 +33,39 @@ const ShopPage = () => {
       console.error("fetching error");
     }
   };
-  //페이지 표시
+  // 페이지 표시
   useEffect(() => {
     console.log("page ? ", page);
     getPost();
   }, [page]);
-  //이벤트 등록 passive 설정 추가, 쓰로틀링 구현 중
+  
+  // //이벤트 등록 passive 설정 추가, 쓰로틀링 구현 중
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll, { passive: true });
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [page]);
+
+  //observer 콜백함수
+  const onIntersect = (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setPage((prev) => prev + 1);
+        observer.unobserve(entry.target);
+      }
+    });
+  };
+
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [page]);
+    let observer;
+    if (lastIntersectingPost) {
+      observer = new IntersectionObserver(onIntersect, { threshold: 0.5 });
+      observer.observe(lastIntersectingPost);
+    }
+    return () => observer && observer.disconnect();
+  }, [lastIntersectingPost]);
+
   //새로고침시 페이지 최상단으로 이동
   useEffect(() => {
     window.onbeforeunload = function pushRefresh() {
@@ -54,26 +76,55 @@ const ShopPage = () => {
   return (
     <>
       <Helmet>
-    <title>SHOP | KREAM</title>
+        <title>SHOP | IsKREAM</title>
       </Helmet>
       <Warpper>
         <Container>
           <ItemContainer>
-            {posts.map((item, index) => (
-              <Card onClick={() => navigate(`/products/${item.id}`)}>
-                <SubItem key={item.id + index}>
-                  <Item>
-                    <img src={item.thumbnail} alt="" />
-                  </Item>
-                  <Itemdesc>
-                    <ItemName>{item.product_brand}</ItemName>
-                    <ItemFullName>{item.product_name_eng}</ItemFullName>
-                    <ItemPrice>{item.product_price}원</ItemPrice>
-                    <RightNow>즉시구매가</RightNow>
-                  </Itemdesc>
-                </SubItem>
-              </Card>
-            ))}
+            {posts.map((item, index) => {
+              if (index === posts.length - 1) {
+                return (
+                  <Card
+                    onClick={() => navigate(`/products/${item.id}`)}
+                    key={item.id + index}
+                    alt=""
+                    ref={setLastIntersectingPost}
+                  >
+                    <SubItem>
+                      <Item>
+                        <img src={item.thumbnail} alt="" />
+                      </Item>
+                      <Itemdesc>
+                        <ItemName>{item.product_brand}</ItemName>
+                        <ItemFullName>{item.product_name_eng}</ItemFullName>
+                        <ItemPrice>{item.product_price}원</ItemPrice>
+                        <RightNow>즉시구매가</RightNow>
+                      </Itemdesc>
+                    </SubItem>
+                  </Card>
+                );
+              } else {
+                return (
+                  <Card
+                    onClick={() => navigate(`/products/${item.id}`)}
+                    key={item.id + index}
+                    alt=""
+                  >
+                    <SubItem>
+                      <Item>
+                        <img src={item.thumbnail} alt="" />
+                      </Item>
+                      <Itemdesc>
+                        <ItemName>{item.product_brand}</ItemName>
+                        <ItemFullName>{item.product_name_eng}</ItemFullName>
+                        <ItemPrice>{item.product_price}원</ItemPrice>
+                        <RightNow>즉시구매가</RightNow>
+                      </Itemdesc>
+                    </SubItem>
+                  </Card>
+                );
+              }
+            })}
           </ItemContainer>
           {loading ? <LoadingSpinner /> : null}
         </Container>
@@ -82,11 +133,10 @@ const ShopPage = () => {
   );
 };
 
-
 export default ShopPage;
 
 const Warpper = styled.section`
-  display : block;
+  display: block;
   max-width: 1280px;
   margin: 0 auto;
   margin-top: 5rem;
@@ -152,4 +202,3 @@ const Card = styled.div`
     cursor: pointer;
   }
 `;
-

@@ -10,28 +10,29 @@ const HomeItem = () => {
   const navigate = useNavigate();
 
     useEffect(() => {
-    const getPost = async () => {
       setLoading(true)
+    const getPost = async () => {
       const { data } = await instance.get(`/api/products/recent`);
+      setLoading(false)
       return data;
     };
     getPost().then((result) => setPosts(result));
     console.log(posts)
-    setLoading(false)
+  
   }, []);
 
   return (
     <Warpper>
       <Container>
         <TitleContainer>
-        {loading? <LoadingSpinner/> : null}
           <Title>Just Registered</Title>
           <SubTitle>최근 등록 상품</SubTitle>
+          {loading? <LoadingSpinner/> : null}
         </TitleContainer>
         <ItemContainer>
             {posts.map((item, index) => (
               <Card onClick={()=> navigate(`/products/${item.id}`)}>
-                <SubItem key={item.id + index}>
+                <SubItem >
                   <Item>
                     <img src={item.thumbnail} alt="" />
                   </Item>

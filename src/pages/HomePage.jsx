@@ -17,7 +17,7 @@ const HomePage = () => {
   return (
     <>
     <Helmet>
-    <title>KREAM | 한정판 거래의 FLEX</title>
+    <title>IsKREAM | 한정판 거래의 FLEX</title>
       </Helmet>
       <HomeImageSlider />
       <HomeItem />

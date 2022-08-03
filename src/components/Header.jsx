@@ -1,27 +1,39 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logout } from "../redux/modules/user";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.isLogin);
+  const [isLogin, setisLogin] = useState(false);
   const [page, setPage] = useState(1);
 
   const LogOut = () => {
     dispatch(logout());
     localStorage.removeItem("user");
     navigate("/");
+    window.location.reload();
   };
+
+  useEffect(()=> {
+
+    const CheckLogin = localStorage.getItem("user")
+    console.log(CheckLogin)
+    if(CheckLogin === null)
+    setisLogin(false)
+    else{setisLogin(true)
+    }
+  }, [])
+  
 
   return (
     <>
       {window.location.pathname === "/products" ? (
         <ShopMainHeader>
           <FirstHeader>
-            {is_login === true ? (
+            {isLogin === true ? (
               <Login onClick={LogOut}>로그아웃</Login>
             ) : (
               <Login
@@ -55,7 +67,7 @@ const Header = () => {
       ) : (
         <MainHeader>
           <FirstHeader>
-            {is_login === true ? (
+            {isLogin === true ? (
               <Login onClick={LogOut}>로그아웃</Login>
             ) : (
               <Login
