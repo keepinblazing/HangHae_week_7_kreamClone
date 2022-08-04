@@ -37,9 +37,12 @@ const ProductSellPage = () => {
         },{
             headers: { Authorization: "Bearer " + accessToken }
         })
-        .then(res => alert('판매에 성공했습니다.'), navigate("/"))
-            
-        .catch(res => {alert('상품 판매는 로그인 후 이용해 주세요.'); navigate("/login")})
+        .then(res => {alert('상품 판매에 성공했습니다.'); navigate('/')})
+        .catch(res => {
+            console.log(accessToken, res)
+            if (accessToken === null) {alert('상품 판매는 로그인 후 이용해주세요.'); navigate('/login')} 
+            else if (sellPrice.substr(-3) !== '000') {alert('판매금액은 천단위로 입력해주세요.')} 
+            })
     }
 
     useEffect(() => {getProductList()}, [])
