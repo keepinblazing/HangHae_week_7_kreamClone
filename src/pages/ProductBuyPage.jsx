@@ -35,10 +35,10 @@ const ProductBuyPage = () => {
         }, {
             headers: { Authorization: "Bearer " + accessToken }
         })
-            .then(res => alert(res.data), navigate("/"))
+            .then(res => alert('구매에 성공했습니다.'), navigate("/"))
             
-            .catch(res => alert('상품 구매는 로그인 후 이용해 주세요.'))
-            navigate("/login")
+            .catch(res => {alert('상품 구매는 로그인 후 이용해 주세요.'); navigate("/login")})
+           
     }
 
     useEffect(() => { getProductList() }, [])
@@ -48,7 +48,7 @@ const ProductBuyPage = () => {
     return (
         <>
             <Helmet>
-                <title>KREAM | 한정판 거래의 FLEX</title>
+                <title>IsKREAM | 한정판 거래의 FLEX</title>
             </Helmet>
             <ContainerBuy>
                 <div className="content_wrap">

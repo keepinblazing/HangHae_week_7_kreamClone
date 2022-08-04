@@ -21,7 +21,7 @@ function App() {
     const accessToken = localStorage.getItem("user");
     if (is_login === false && accessToken !== null) {
       instance
-        .get("/api/users/auth", {
+        .get("/api/detail/data", {
           headers: { Authorization: "Bearer " + accessToken },
         })
         .then((response) => {

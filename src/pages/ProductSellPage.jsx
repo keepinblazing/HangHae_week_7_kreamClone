@@ -37,9 +37,9 @@ const ProductSellPage = () => {
         },{
             headers: { Authorization: "Bearer " + accessToken }
         })
-        .then(res => alert(res.data), navigate("/"))
+        .then(res => alert('판매에 성공했습니다.'), navigate("/"))
             
-        .catch(res => alert('로그인 후 이용해 주세요.'),  navigate("/login"))
+        .catch(res => {alert('상품 판매는 로그인 후 이용해 주세요.'); navigate("/login")})
     }
 
     useEffect(() => {getProductList()}, [])
